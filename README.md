@@ -1,38 +1,52 @@
-This is a [Next.js](https://nextjs.org/) project bootstrapped with [`create-next-app`](https://github.com/vercel/next.js/tree/canary/packages/create-next-app).
+# Nome do Projeto
 
-## Getting Started
+Uma breve descrição do seu projeto aqui. Descreva o objetivo do projeto, suas principais funcionalidades e qualquer informação relevante para os usuários.
 
-First, run the development server:
+## Instalação
 
-```bash
+Siga estas etapas para instalar e executar o projeto localmente:
+
+1. Clone este repositório:
+
+git clone https://github.com/seuusuario/seuprojeto.git
+cd seuprojeto
+
+
+2. Instale as dependências do projeto:
+
+npm install
+
+
+3. Crie um arquivo `.env` na raiz do projeto com as variáveis de ambiente necessárias, seguindo o exemplo do arquivo `.env.example`.
+
+4. Inicie o servidor de desenvolvimento:
+
 npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
 
-You can start editing the page by modifying `pages/index.tsx`. The page auto-updates as you edit the file.
+O aplicativo agora deve estar rodando em `http://localhost:3000`.
 
-[API routes](https://nextjs.org/docs/api-routes/introduction) can be accessed on [http://localhost:3000/api/hello](http://localhost:3000/api/hello). This endpoint can be edited in `pages/api/hello.ts`.
+## Uso
 
-The `pages/api` directory is mapped to `/api/*`. Files in this directory are treated as [API routes](https://nextjs.org/docs/api-routes/introduction) instead of React pages.
+Descreva como os usuários podem usar seu aplicativo, incluindo informações sobre como navegar pelas diferentes páginas, recursos disponíveis e qualquer limitação conhecida.
 
-This project uses [`next/font`](https://nextjs.org/docs/basic-features/font-optimization) to automatically optimize and load Inter, a custom Google Font.
+## Contribuindo
 
-## Learn More
+Se você deseja contribuir para este projeto, siga estas etapas:
 
-To learn more about Next.js, take a look at the following resources:
+1. Faça um fork do repositório.
+2. Crie uma nova branch com um nome descritivo, como `nome-funcionalidade`.
+3. Faça suas alterações e, em seguida, faça commit e push para sua branch.
+4. Crie uma pull request descrevendo suas mudanças e o motivo delas.
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+## Licença
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js/) - your feedback and contributions are welcome!
+Inclua informações sobre a licença que seu projeto está usando (se aplicável).
 
-## Deploy on Vercel
+## Contato
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+Se você tiver alguma dúvida, problema ou sugestão, entre em contato comigo:
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/deployment) for more details.
+- Nome Completo
+- Email: [seuemail@email.com](mailto:seuemail@email.com)
+- GitHub: [seuusuario](https://github.com/seuusuario)
