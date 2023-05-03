@@ -1,6 +1,7 @@
 // components/navbar/Navbar.tsx
 import React from 'react';
 import Link from 'next/link';
+import Image from 'next/image';
 
 const Navbar = () => {
   return (
@@ -20,7 +21,7 @@ const Navbar = () => {
         <div className="dropdown dropdown-end">
           <label tabIndex={0} className="btn btn-ghost btn-circle avatar">
             <div className="w-10 rounded-full">
-              <img src='http://localhost:3000/public/images/EU.png'/>
+              <Image src='https://pbs.twimg.com/profile_images/1596571012237254657/M37hirAG_400x400.jpg' alt={'Avatar'} width={40} height={40} />
             </div>
           </label>
           <ul

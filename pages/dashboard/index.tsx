@@ -4,7 +4,7 @@ import CourseCard from '@/components/course/CourseCard';
 import ProgressTracker from '@/components/profile/ProgressTracker';
 import UserDashboard from '@/components/profile/UserDashboard';
 import DataCursos from '@/data/dataFake';
-import User from '@/types/User';
+import Course from '@/types/Course';
 import React from 'react';
 
 const Dashboard: React.FC = () => {
@@ -48,7 +48,7 @@ const Dashboard: React.FC = () => {
                 <div className="mt-8 grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">                   
                     {enrolledCourses.map((course, index) => (
                         <div key={course.id}>
-                            <CourseCard title={course.title} coverImage={course.image} Module={[]} />
+                            <CourseCard course={course as unknown as Course}   />
                             <ProgressTracker
                                 totalLessons={course.progress.totalLessons}
                                 completedLessons={course.progress.completedLessons}

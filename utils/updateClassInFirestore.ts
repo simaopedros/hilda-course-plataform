@@ -7,7 +7,7 @@ const db = getFirestore(appFirebase);
 
 const updateClassInFirestore = async (classData: Class) => {
   try {
-    const classDocRef = doc(db, "aulas", classData.id.toString());
+    const classDocRef = doc(db, "aulas", classData.id as string);
     await updateDoc(classDocRef, {
       title: classData.title,
       urlAula: classData.videoURL,

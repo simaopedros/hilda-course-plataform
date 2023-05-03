@@ -1,6 +1,7 @@
 // components/userProfile/UserProfile.tsx
 
 import User from '@/types/User';
+import Image from 'next/image';
 import React, { useState } from 'react';
 
 interface UserProfileProps {
@@ -25,7 +26,7 @@ const UserProfile: React.FC<UserProfileProps> = ({ user, onSubmit }) => {
   return (
     <div className="bg-white shadow-md rounded-lg p-6">
       <div className="flex flex-col md:flex-row items-center">
-        <img
+        <Image
           src={user.profilePicture || '/path/to/default-profile-picture.png'}
           alt="Profile"
           className="w-32 h-32 object-cover rounded-full"

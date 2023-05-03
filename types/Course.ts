@@ -7,7 +7,7 @@ export default interface Course {
     category?: string;
     duration?: number;
     coverImage?: string; // URL da imagem de capa
-    instructorId?: number; // Referência ao ID do instrutor (User) responsável pelo curso
+    instructorId?: number | string; // Referência ao ID do instrutor (User) responsável pelo curso
     instructor?: {
       id?: number;
       name?: string;
@@ -20,5 +20,5 @@ export default interface Course {
     status?: "active" | "inactive" | "in-development";
     requirements?: string[]; // Lista de requisitos (opcional)
     completed?: boolean; // Indica se o curso foi concluído
-    Module: Module[]; ///Adicionar aos 
+    Module?: Module[]; ///Adicionar aos 
   }

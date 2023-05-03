@@ -1,48 +1,63 @@
-// components/lessonItem/LessonItem.tsx
-
-import React, { useState } from 'react';
-import Aula from '@/types/Aula';
-import SupplementaryMaterialButton from './SupplementaryMaterialButton';
+import React, { useEffect, useState } from 'react';
+import { useRouter } from 'next/router';
+import getLessonIdFromURL from '@/utils/getLessonIdFromURL';
 
 interface LessonItemProps {
-  lesson: Aula;
-  onCompletionChange: (lessonId: number, completed: boolean) => void;
+  lesson: {
+    id: string;
+    title: string;
+    courseId: string;
+    moduleId: string;
+    duration: number;
+  };
+  completed: boolean;
+  onToggleCompleted: (lessonId: string) => void;
+  onLessonClick: (lessonId: string) => void;
 }
 
-const LessonItem: React.FC<LessonItemProps> = ({ lesson, onCompletionChange }) => {
-  const [completed, setCompleted] = useState(lesson.completed || false);
+const LessonItem: React.FC<LessonItemProps> = ({ lesson, completed, onToggleCompleted, onLessonClick }) => {
+  const router = useRouter();
+  const [isCurrentLesson, setIsCurrentLesson] = useState(false);
 
-  const handleCompletionChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    const isChecked = e.target.checked;
-    setCompleted(isChecked);
-    onCompletionChange(Number.parseInt(lesson.id as string), isChecked);
+
+  useEffect(() => {
+    const currentLessonId = getLessonIdFromURL();
+    setIsCurrentLesson(currentLessonId === lesson.id);
+  }, [lesson.id]);
+
+
+
+
+  const handleClick = () => {
+    if (!isCurrentLesson) {
+      if (typeof onLessonClick === 'function') {
+        onLessonClick(lesson.id);
+        window.location.assign(`/courses/${lesson.courseId}/module/${lesson.moduleId}/lessons/${lesson.id}`);
+        
+      } else {
+        console.error('onLessonClick is not a function:', onLessonClick);
+      }
+    }
   };
 
+
+  function toHoursAndMinutes(totalMinutes: number) {
+    const hours = Math.floor(totalMinutes / 60);
+    const minutes = totalMinutes % 60;
+
+    return `${hours}h:${minutes > 0 ? `${minutes}` : ''}m`;
+  }
   return (
-    <>
-      <div className="border-slate-200 border-2 p-2 rounded-md my-1">
-        <input
-          type="checkbox"
-          checked={completed}
-          onChange={handleCompletionChange}
-          className="mr-2"
-        />
-        <span className={`text-gray-700 ${completed ? 'line-through' : ''}`}>
-          {lesson.nome}
-        </span>
-
-        <div>
-          <span className="ml-auto">
-            {
-              lesson.suplementar?.map((material, idx) => (
-                <SupplementaryMaterialButton key={idx} material={material} />
-              ))
-            }
-          </span>
-        </div>
-
-      </div>
-    </>
+    <div className="border m-1 border-gray-300 rounded p-1 flex items-center space-x-4 cursor-pointer" onClick={handleClick}  >
+      <input
+        type="checkbox"
+        className="form-checkbox text-accent"
+        checked={completed}
+        onChange={() => onToggleCompleted(lesson.id)}
+      />
+      <p className="text-xs flex-grow">{lesson.title}</p>
+      <div className="badge badge-outline">{toHoursAndMinutes(lesson.duration)}</div>
+    </div>
   );
 };
 

@@ -1,7 +1,8 @@
 // components/courseList/CourseList.tsx
 import React from 'react';
 import CourseCard from './CourseCard';
-import Course from '@/types/Course';
+import { Course } from './courseForms/CourseList';
+
 
 
 
@@ -12,15 +13,12 @@ type CourseListProps = {
 const CourseList = ({ courses }: CourseListProps) => {
   return (
     <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4">
-      {courses.map((course) => (
+      {courses && courses.map((course, id) => (
         <CourseCard
-          //key={course.id}
-          id={course.id}
-          title={course.title}
-          coverImage={course.coverImage}
-          instructorId={course.instructorId}
-          price={course.price} 
-          Module={course.Module}        />
+        key={id}
+          course={course}
+          courseUUID={course.UUID}
+     />
       ))}
     </div>
   );

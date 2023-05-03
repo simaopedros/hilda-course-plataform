@@ -95,11 +95,12 @@ const CreateCourse: React.FC = () => {
         const course: Course = {
             UUID: createdCourseUid as string,
             title: values.title,
-            modules: [],
             category: values.category,
             coverImage: values.coverImage,
             description: values.description,
             instructorId: user.uid,
+            url: values.videoUrl,
+
         };
 
         const courseUid = await saveCourseToFirestore(course);
@@ -359,8 +360,8 @@ const CreateCourse: React.FC = () => {
                                 isSelected={module.UIDModule === selectedModuleId}
                                 key={module.UIDModule}
                                 moduleId={module.id as number}
-                                title={module.title}
-                                description={module.description}
+                                title={module.title as string}
+                                description={module.description as string}
                                 index={index}
                                 moveModule={moveModule}
                                 onModuleClick={handleModuleClick}

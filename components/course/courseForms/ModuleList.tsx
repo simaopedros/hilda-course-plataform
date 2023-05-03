@@ -1,25 +1,30 @@
-// components/ModuleList.tsx
+// components/courseForms/ModuleList.tsx
 
 import React, { useState } from 'react';
-import LessonForm from './LessonForm';
-import { HandleLessonSubmitValues } from '@/pages/courses/create-course2';
+import LessonForm, { LessonFormValues } from './LessonForm';
+//import { HandleLessonSubmitValues } from '@/pages/courses/create-course2';
 
+export interface HandleLessonSubmitValues extends LessonFormValues {
+  moduleId: number;
+}
 export interface Lesson {
-  type: string;
-  title: string;
-  description: string;
-  duration: number;
-  videoUrl: string;
-  readingMaterial: string;
+  UUIDAula?: string
+  UUIDModule?: string
+  type?: string;
+  title?: string;
+  description?: string;
+  duration?: number;
+  videoUrl?: string;
+  readingMaterial?: string;
 }
 
 export interface Module {
   UUIDCourse?: string;
   UIDModule?: string;
   displayOrder?: number;
-  id?: number;
-  title: string;
-  description: string;
+  id?: number | string;
+  title?: string;
+  description?: string;
   lessons?: Lesson[];
 }
 
@@ -44,7 +49,7 @@ const ModuleList: React.FC<ModuleListProps> = ({ modules, onLessonSubmit, handle
       {modules && modules.map((module, index) => (
         <div key={module.id} className="module-item p-4 rounded-lg bg-white shadow">
           <h3 className="text-xl font-bold">{module.title}</h3>
-          <button onClick={() => setActiveModule(module.id)} className="btn btn-primary mt-2">Adicionar Aula</button>
+          <button onClick={() => setActiveModule(module.id as  number)} className="btn btn-primary mt-2">Adicionar Aula</button>
         </div>
       ))}
       {activeModule && showLessonForm && (
@@ -52,7 +57,7 @@ const ModuleList: React.FC<ModuleListProps> = ({ modules, onLessonSubmit, handle
         <LessonForm
           onSubmit={(values) => {
             if (selectedModuleIndex !== null) {
-              onLessonSubmit({ ...values, moduleId: modules[selectedModuleIndex].id });
+              onLessonSubmit({ ...values, moduleId: modules[selectedModuleIndex].id as number });
             }
             setShowLessonForm(false); // Adicione esta linha
           }}

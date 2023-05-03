@@ -2,20 +2,20 @@
 
 import Lesson from '@/types/Module';
 import React from 'react';
+import { Module } from '../course/courseForms/ModuleList';
 
 interface ProgressTrackerProps {
-  lessons: Lesson[];
-  currentLessonIndex: number;
+  modules: Module[];
 }
 
-const ProgressTracker: React.FC<ProgressTrackerProps> = ({ lessons, currentLessonIndex }) => {
+const ProgressTracker: React.FC<ProgressTrackerProps> = ({ modules}) => {
   return (
     <div className="bg-white shadow-md rounded-md p-4">
-      <h3 className="text-xl font-semibold mb-2">Progresso do Curso</h3>
+      <h3 className="text-xl font-semibold mb-2">Modulos do Curso</h3>
       <ul className="steps steps-vertical">
-        {lessons.map((lesson, index) => (
-          <li key={index} className={`step ${index <= currentLessonIndex ? 'step-primary' : ''}`}>
-            {lesson.title}
+        {modules && modules.map((module, index) => (
+          <li key={index} className={`step `}>
+            {module.title}
           </li>
         ))}
       </ul>

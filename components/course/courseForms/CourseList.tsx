@@ -23,9 +23,12 @@ export interface Course {
   title: string;
   category: string;
   coverImage: string;
+  url?: string;
   description: string;
   instructorId: string;
-  modules: Module[];
+  instructorName?:   string;
+  duration?: number;
+  modules?: Module[];
 }
 
 const CourseList: React.FC<CourseListProps> = ({ courses, selectedCourseId, onCourseSelection }) => {

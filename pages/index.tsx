@@ -1,11 +1,15 @@
 import React from 'react';
 import CourseList from '@/components/course/CourseList';
 import Testimonial from '@/components/testimonial/Testimonial';
-import DataCursos from '@/data/dataFake';
+import Course from '@/types/Course';
 
 
 
-const coursos = DataCursos;
+
+const coursos = [] as Course[]; // IRA CARREGAR A LISTAGEM DE CURSOS DA HOME PAGE
+
+
+
 console.log("Aqui" + coursos.length)
 function HomePage() {
   return (
@@ -24,7 +28,7 @@ function HomePage() {
       </section>
       <section className="container mx-auto px-6 py-20">
         <h2 className="text-3xl font-bold mb-10">Cursos em Destaque</h2>
-        <CourseList courses={coursos} />
+        <CourseList courses={[]}  /> 
       </section>
       <section className="container mx-auto px-6 py-20">
         <h2 className="text-3xl font-bold mb-10">Depoimentos</h2>

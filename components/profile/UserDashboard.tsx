@@ -1,6 +1,7 @@
 // components/userDashboard/UserDashboard.tsx
 
 import User from '@/types/User';
+import Image from 'next/image';
 import React from 'react';
 
 
@@ -10,7 +11,7 @@ const UserDashboard: React.FC<User> = ({ name, profilePicture, description }) =>
     <div className="bg-white rounded-lg shadow p-6">
       <div className="flex items-center space-x-4">
         <div className="relative">
-          <img src={profilePicture} alt={name} className="w-20 h-20 rounded-full" />
+          <Image src={profilePicture as string} alt={name as string} className="w-20 h-20 rounded-full" />
           <div className="absolute bottom-0 right-0 bg-green-500 text-white font-semibold text-xs rounded-full px-2 py-1">
             Online
           </div>
