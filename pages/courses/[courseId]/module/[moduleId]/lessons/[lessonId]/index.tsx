@@ -268,14 +268,14 @@ const CoursePage = () => {
 
 
   return (
-    <div className="flex flex-col h-full">
+    <div className="flex flex-col h-full  ">
       {/* Header */}
-      <header className="bg-base-200 h-16 p-4 flex justify-between items-center">
+      <header className="bg-base-200 h-16 p-4 flex justify-between items-center pl-8 ">
         <div className="w-[60%] text-xl font-semibold">{lessonTitle}</div>
 
         {/* Complete Lesson Button */}
-        <div className="ml-8 mr-5 btn btn-primary w-[25%]">
-          <button className="full-width" onClick={completeLesson}>
+        <div className="ml-8 mr-5 btn btn-primary w-[25%]" onClick={completeLesson}>
+          <button className="full-width" >
             Concluir Aula
           </button>
           <Confetti active={showConfetti} config={confettiConfig} />
@@ -285,12 +285,12 @@ const CoursePage = () => {
 
       </header>
       {/* Content */}
-      <div className="flex-grow flex">
+      <div className="flex-grow flex background-white">
         {/* Main Content */}
-        <div className={`h-full flex-grow transition-all duration-300 ${sidebarVisible ? 'lg:w-[70%]' : 'w-full'}`}>
+        <div className={`h-full  ml-8 mr-8 flex-grow transition-all duration-300 ${sidebarVisible ? 'lg:w-[70%]' : 'w-full'}`}>
 
-          <div className="bg-gray-900 h-[60%]">
-            <VideoPlayer key={videoURL} videoId={videoURL} />
+          <div className="bg-gray-900 h-[60%] ">
+            <VideoPlayer key={videoURL} videoId={videoURL}/>
           </div>
 
           {/* Comments Area */}

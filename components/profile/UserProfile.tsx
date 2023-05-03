@@ -30,6 +30,8 @@ const UserProfile: React.FC<UserProfileProps> = ({ user, onSubmit }) => {
           src={user.profilePicture || '/path/to/default-profile-picture.png'}
           alt="Profile"
           className="w-32 h-32 object-cover rounded-full"
+          width={96}
+          height={96}
         />
         <div className="md:ml-8 mt-4 md:mt-0">
           {editMode ? (
