@@ -11,7 +11,7 @@ const handleCourseSubmit = async (course: Course) => {
 
   const saveCourseToFirestore = async (course: Course): Promise<string> => {
     const db = getFirestore(appFirebase);
-    const courseRef = collection(db, "courses");
+    const courseRef = collection(db, "col-courses");
     try {
       const docRef = await addDoc(courseRef, course);
       console.log("Curso criado com sucesso com ID: ", docRef.id);

@@ -10,6 +10,7 @@ import getCourseIdFromURL from '@/utils/getCourseIdFromURL';
 import useAuth from '@/utils/hooks/useAuth';
 import Confetti from 'react-dom-confetti';
 import { Howl } from 'howler';
+import { GetStaticPaths, GetStaticProps } from 'next';
 
 const CoursePage = () => {
   const [sidebarVisible, setSidebarVisible] = useState(true);
@@ -330,6 +331,34 @@ const CoursePage = () => {
   );
 
 
+};
+
+export const getStaticPaths: GetStaticPaths = async () => {
+  // Aqui, você precisa buscar todos os courseId, moduleId e lessonId possíveis
+  // e retornar um array de objetos params
+
+  // Exemplo de estrutura de retorno:
+  return {
+    paths: [
+      // Deixe o array paths vazio para gerar páginas no momento do acesso
+    ],
+    fallback: true, // Altere o fallback para true
+  };
+};
+
+export const getStaticProps: GetStaticProps = async ({ params }) => {
+  // Aqui, você pode buscar os dados necessários para a página usando params.courseId, params.moduleId e params.lessonId
+  // e retornar como props para o componente CoursePage
+
+  // Exemplo de estrutura de retorno:
+  return {
+    props: {
+      courseId: params?.courseId,
+      moduleId: params?.moduleId,
+      lessonId: params?.lessonId,
+    },
+    revalidate: 60, // tempo em segundos para regenerar a página estática
+  };
 };
 
 export default CoursePage;

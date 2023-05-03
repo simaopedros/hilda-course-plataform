@@ -27,6 +27,7 @@ import { fetchFilteredResources } from "@/utils/fetchFilteredResources";
 
 const CreateCourse: React.FC = () => {
     const { user, loading } = useAuth();
+
     const [userCourses, setUserCourses] = useState<Course[]>([]);
     const [createdCourseUid, setCreatedCourseUid] = useState<string | null>(null); // armazena o UID do curso criado
     const [selectedCourseModules, setSelectedCourseModules] = useState<Module[]>([]); // estado para armazenar os módulos do curso selecionado
@@ -242,15 +243,7 @@ const CreateCourse: React.FC = () => {
         }
     };
 
-
-
-
-
     // ...
-
-
-
-
 
     const openClassFormModal = (classItem: Class) => {
         console.log("Duplo clique detectado");
