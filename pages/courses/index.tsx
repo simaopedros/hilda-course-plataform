@@ -50,7 +50,7 @@ const Courses: React.FC = () => {
         };
 
         fetchCourses();
-    }, []);
+    }, [q]);
 
 
 

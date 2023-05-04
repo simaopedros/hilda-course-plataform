@@ -1,4 +1,5 @@
 // plans/index.tsx
+import Image from 'next/image';
 import { useState, useEffect } from 'react';
 
 const PlansPage = () => {
@@ -26,7 +27,7 @@ const PlansPage = () => {
       <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
         <div className="card bordered">
           <figure>
-            <img src="https://picsum.photos/id/1005/400/250" />
+            <Image src="https://picsum.photos/id/1005/400/250" alt='' height={250} width={400} />
           </figure>
           <div className="card-body">
             <h2 className="card-title">Assinatura Anual</h2>
@@ -41,7 +42,7 @@ const PlansPage = () => {
 
         <div className="card bordered">
           <figure>
-            <img src="https://picsum.photos/id/1/400/250" />
+            <Image src="https://picsum.photos/id/1/400/250"   alt='' height={250} width={400} />
           </figure>
           <div className="card-body">
             <h2 className="card-title">Assinatura Semestral</h2>
@@ -56,7 +57,7 @@ const PlansPage = () => {
 
         <div className="card bordered">
           <figure>
-            <img src="https://picsum.photos/id/1009/400/250" />
+            <Image src="https://picsum.photos/id/1009/400/250" alt='' height={250} width={400} />
           </figure>
           <div className="card-body">
             <h2 className="card-title">Assinatura Mensal</h2>

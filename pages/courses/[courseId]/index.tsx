@@ -146,7 +146,7 @@ const CoursePage: React.FC = () => {
 
 
         }
-    }, [courseId, auth]);
+    }, [courseId]);
 
 
     function handleButtonClick() {
