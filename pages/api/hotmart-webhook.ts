@@ -47,7 +47,9 @@ async function createOrUpdateUser(data: any) {
     let user;
     try {
         user = await usersRef.getUserByEmail(buyer.email);
+        console.log('Usuario encontrado:', user.uid);
       } catch (error) {
+        console.log('Usuario não encontrado');
         const firebaseError = error as FirebaseAuthError;
       
         if (firebaseError.code === 'auth/user-not-found') {
@@ -78,7 +80,7 @@ async function createOrUpdateUser(data: any) {
   
     // Adicionar ou atualizar dados do plano na coleção '/profiles'
     console.log('// Adicionar ou atualizar dados do plano na coleção /profiles')
-    
+
     const profileRef = admin.firestore().collection('/profiles').doc(user.uid);
     const profileData = {
         UID: user.uid,
