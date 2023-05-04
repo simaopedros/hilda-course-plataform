@@ -98,6 +98,8 @@ async function createOrUpdateUser(data: any) {
     };
   
     await profileRef.set(profileData, { merge: true });
+    console.log('Dados salvos no Firebase com sucesso!'); // Adicione este log de console
+
   }
   
 
@@ -112,6 +114,8 @@ const handleHotmartWebhook = async (req: NextApiRequest, res: NextApiResponse) =
         case 'PURCHASE_COMPLETE':
           console.log('Evento de compra recebido:', eventData.event);
             createOrUpdateUser(eventData.data)
+            console.log('Dados do evento:', eventData.data); // Adicione este log de console
+
             // Processar evento de compra
             break;
         case 'PURCHASE_CANCELED':
