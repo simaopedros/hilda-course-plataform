@@ -113,8 +113,12 @@ const handleHotmartWebhook = async (req: NextApiRequest, res: NextApiResponse) =
         
         case 'PURCHASE_COMPLETE':
           console.log('Evento de compra recebido:', eventData.event);
-            createOrUpdateUser(eventData.data)
-            console.log('Dados do evento:', eventData.data); // Adicione este log de console
+          try {
+            await createOrUpdateUser(eventData.data);
+            console.log('Dados do evento:', eventData.data);
+          } catch (error) {
+            console.error('Erro ao criar ou atualizar usuário:', error);
+          }
 
             // Processar evento de compra
             break;
