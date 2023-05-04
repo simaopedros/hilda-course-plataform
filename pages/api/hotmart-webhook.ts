@@ -93,13 +93,13 @@ async function createOrUpdateUser(data: any) {
 const handleHotmartWebhook = async (req: NextApiRequest, res: NextApiResponse) => {
     const eventData = req.body;
 
-    console.log('Evento recebido:', eventData.event);
+    console.log('Evento recebido:', eventData.data);
 
     // Verificar o tipo de evento e processar adequadamente
     switch (eventData.event) {
         
         case 'PURCHASE_COMPLETE':
-            createOrUpdateUser(eventData)
+            createOrUpdateUser(eventData.data)
             // Processar evento de compra
             break;
         case 'PURCHASE_CANCELED':
