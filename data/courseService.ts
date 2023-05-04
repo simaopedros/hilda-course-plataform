@@ -1,7 +1,8 @@
 // data/courseService.ts
 import { addDoc, collection } from "firebase/firestore";
-import firestore from "./firestore";
+
 import { Course } from "@/components/course/courseForms/CourseList";
+import { firestore } from "./firestore";
 
 export const createCourse = async (course: Course) => {
   try {

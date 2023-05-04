@@ -4,10 +4,9 @@ import Breadcrumbs from '@/components/breadcrumbs/Breadcrumbs';
 import CourseList from '@/components/course/CourseList';
 import { Course } from '@/components/course/courseForms/CourseList';
 import Pagination from '@/components/pagination/Pagination';
-import firestore from '@/data/firestore';
+import { firestore } from '@/data/firestore';
 import { collection, getDocs, orderBy, query } from 'firebase/firestore';
 import React, { useEffect, useState } from 'react';
-import { useCollectionData } from "react-firebase-hooks/firestore";
 
 
 

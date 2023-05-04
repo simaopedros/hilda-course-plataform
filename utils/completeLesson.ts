@@ -1,4 +1,4 @@
-import firestore from "@/data/firestore";
+import {firestore} from "@/data/firestore";
 import getCourseIdFromURL from "./getCourseIdFromURL";
 import getLessonIdFromURL from "./getLessonIdFromURL";
 import { arrayUnion, collection, doc, getDocs, query, updateDoc, where } from "firebase/firestore";

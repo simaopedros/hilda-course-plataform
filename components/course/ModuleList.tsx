@@ -1,7 +1,7 @@
-import firestore from '@/data/firestore';
 import { collection, getDocs, orderBy, query, where } from 'firebase/firestore';
 import React, { useEffect, useState } from 'react';
 import LessonItem from './LessonItem';
+import { firestore } from '@/data/firestore';
 
 export interface Module {
   id: string | number;

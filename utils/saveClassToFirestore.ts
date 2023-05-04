@@ -1,5 +1,5 @@
-import { addDoc, collection, setDoc, doc, query, where, getDocs, orderBy, limit } from "firebase/firestore";
-import firestore from "@/data/firestore";
+import { firestore } from "@/data/firestore";
+import { addDoc, collection, doc, getDocs, limit, orderBy, query, setDoc, where } from "firebase/firestore";
 import { Class } from "./fetchModuleClasses";
 
 export const saveClassToFirestore = async (

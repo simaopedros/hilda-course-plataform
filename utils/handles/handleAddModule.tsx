@@ -3,9 +3,9 @@
 
 
 import { Module } from "@/components/course/courseForms/ModuleList";
+import { firestore } from "@/data/firestore";
 import { doc, setDoc } from "firebase/firestore";
 import { SetStateAction } from "react";
-import firestore from "@/data/firestore";
 
 
 function handleAddModule(
@@ -33,3 +33,4 @@ export {
   handleAddModule,
 
 };
+

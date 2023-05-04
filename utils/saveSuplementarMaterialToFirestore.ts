@@ -1,5 +1,5 @@
 import { addDoc, collection } from "firebase/firestore";
-import firestore from "@/data/firestore";
+import {firestore} from "@/data/firestore";
 import { ResourceFormValues } from "@/components/course/courseForms/ResourceForm";
 
 

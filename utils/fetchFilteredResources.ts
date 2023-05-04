@@ -1,7 +1,7 @@
 // fetchFilteredResources.ts
 
 import { query, where, getDocs, collection } from 'firebase/firestore';
-import firestore from '@/data/firestore';
+import {firestore} from '@/data/firestore';
 
 export interface Resource {
   id: string;

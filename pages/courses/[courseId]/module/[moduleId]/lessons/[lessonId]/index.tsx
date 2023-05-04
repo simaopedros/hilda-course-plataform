@@ -1,7 +1,7 @@
 import React, { useEffect, useRef, useState } from 'react';
 import { FaChevronLeft, FaChevronRight } from 'react-icons/fa';
 import VideoPlayer from '@/components/course/courseForms/VideoPlayer';
-import firestore from '@/data/firestore';
+import {firestore} from '@/data/firestore';
 import { arrayUnion, collection, doc, getDoc, getDocs, orderBy, query, updateDoc, where } from 'firebase/firestore';
 import { useRouter } from 'next/router';
 import ModuleList, { Lesson, Module } from '@/components/course/ModuleList';

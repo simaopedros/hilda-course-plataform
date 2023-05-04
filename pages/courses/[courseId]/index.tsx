@@ -7,7 +7,7 @@ import CourseDetails from '@/components/course-details/CourseDetails';
 import Lesson from '@/components/course-details/Lesson';
 import InstructorCard from '@/components/instructor/InstructorCard';
 import ProgressTracker from '@/components/course-details/ProgressTracker';
-import firestore from '@/data/firestore';
+import {firestore} from '@/data/firestore';
 import { doc } from '@firebase/firestore';
 import { DocumentReference, collection, getDoc, getDocs, orderBy, query, where } from 'firebase/firestore';
 import { Course } from '@/components/course/courseForms/CourseList';
