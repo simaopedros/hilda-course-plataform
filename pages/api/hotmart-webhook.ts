@@ -35,10 +35,14 @@ interface FirebaseAuthError extends Error {
   
 
 async function createOrUpdateUser(data: any) {
+  console.log('Criando ou atualizando usuário...');
+
     const { buyer, product, purchase, subscription } = data;
     let error; // Declare a variável "error" aqui
   
     // Verificar se o usuário já existe
+    console.log('Verificando se o usuário já existe...');
+
     const usersRef = admin.auth();
     let user;
     try {
@@ -47,14 +51,17 @@ async function createOrUpdateUser(data: any) {
         const firebaseError = error as FirebaseAuthError;
       
         if (firebaseError.code === 'auth/user-not-found') {
+          console.log('Usuário não encontrado, criando um novo usuário...');
           // Usuário não encontrado, criar um novo usuário
           user = await usersRef.createUser({
             email: buyer.email,
             displayName: buyer.name,
             // Adicione outros campos necessários
           });
-        
+          console.log('Usuário criado:', user.uid);
           // Enviar email para o usuário criar uma senha
+          console.log('Enviando email para o usuário criar uma senha...');
+
           const emailSubject = 'Bem-vindo! Por favor, crie sua senha';
           const emailContent = `
             <h1>Bem-vindo(a) ${buyer.name}!</h1>
@@ -70,6 +77,8 @@ async function createOrUpdateUser(data: any) {
       
   
     // Adicionar ou atualizar dados do plano na coleção '/profiles'
+    console.log('// Adicionar ou atualizar dados do plano na coleção /profiles')
+    
     const profileRef = admin.firestore().collection('/profiles').doc(user.uid);
     const profileData = {
         UID: user.uid,
@@ -93,12 +102,13 @@ async function createOrUpdateUser(data: any) {
 const handleHotmartWebhook = async (req: NextApiRequest, res: NextApiResponse) => {
     const eventData = req.body;
 
-    console.log('Evento recebido:', eventData.event);
+    
 
     // Verificar o tipo de evento e processar adequadamente
     switch (eventData.event) {
         
         case 'PURCHASE_COMPLETE':
+          console.log('Evento de compra recebido:', eventData.event);
             createOrUpdateUser(eventData.data)
             // Processar evento de compra
             break;
