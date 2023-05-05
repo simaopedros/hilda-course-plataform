@@ -12,15 +12,15 @@ type CourseListProps = {
 
 const CourseList = ({ courses }: CourseListProps) => {
   return (
-    <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4">
-      {courses && courses.map((course, id) => (
-        <CourseCard
+    <div className="course-list grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4">
+    {courses && courses.map((course, id) => (
+      <CourseCard
         key={id}
-          course={course}
-          courseUUID={course.UUID}
-     />
-      ))}
-    </div>
+        course={course}
+        courseUUID={course.UUID}
+      />
+    ))}
+  </div>
   );
 };
 

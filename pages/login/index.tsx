@@ -50,21 +50,22 @@ const Login: React.FC = () => {
   };
 
   return (
-    <div className="min-h-screen flex items-center justify-center">
-      <div className="bg-gray-300 p-8 rounded-lg shadow-md w-full max-w-md">
-        <h2 className="text-2xl font-bold mb-6 text-center">Login</h2>
-        <LoginForm onSubmit={handleLoginSubmit} />
-        {toast.type && (
-          <div className="toast toast-end mt-4">
-            <div className={`alert alert-${toast.type}`}>
-              <div>
-                <span>{toast.message}</span>
-              </div>
-            </div>
+<div className="min-h-screen flex items-center justify-center bg-gradient-to-b from-background-start to-background-end">
+  <div className="bg-white p-8 rounded-lg shadow-md w-full max-w-md">
+    <h2 className="text-2xl font-bold mb-6 text-center text-foreground">Login</h2>
+    <LoginForm onSubmit={handleLoginSubmit} />
+    {toast.type && (
+      <div className="toast toast-end mt-4">
+        <div className={`alert alert-${toast.type}`}>
+          <div>
+            <span>{toast.message}</span>
           </div>
-        )}
+        </div>
       </div>
-    </div>
+    )}
+  </div>
+</div>
+
   );
 };
 

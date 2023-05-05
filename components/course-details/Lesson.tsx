@@ -9,14 +9,13 @@ import VideoPlayer from '../course/courseForms/VideoPlayer';
 
 const Lesson: React.FC<Lesson> = ({ id, title, description, videoUrl }) => {
   return (
-    <div className="bg-white shadow-md rounded-md p-4">
-      <h2 className="text-2xl font-semibold mb-4">{title}</h2>
-      <div className="mb-4">
+    <div className="lesson bg-white shadow-md rounded-md p-4">
+    <h2 className="text-2xl font-semibold mb-4">{title}</h2>
+    <div className="video-container mb-4">
       <VideoPlayer videoId={videoUrl as string} />
-      </div>
-      <p className="mb-4">{description}</p>
-
     </div>
+    <p className="mb-4">{description}</p>
+  </div>
   );
 };
 

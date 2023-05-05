@@ -2,7 +2,7 @@ import { User } from "@firebase/auth";
 import { useEffect, useState } from "react";
 import { auth } from "@/data/sdk";
 
-const useAuth = () => {
+const useAuth = function() {
   const [user, setUser] = useState<User | null>(null);
   const [loading, setLoading] = useState(true);
 

@@ -18,6 +18,8 @@ const Courses: React.FC = () => {
     const [loading, setLoading] = useState(true);
     const [error, setError] = useState<Error | null>(null);
 
+    
+
     useEffect(() => {
         const fetchCourses = async () => {
             try {
@@ -50,19 +52,12 @@ const Courses: React.FC = () => {
     }, []);
 
 
-
-    
-
     const [selectedCourseId, setSelectedCourseId] = useState<string | null>(null);
 
     const onCourseSelection = (selectedCourseId: string, index: number) => {
         setSelectedCourseId(selectedCourseId);
         // Realize outras ações necessárias aqui
     };
-
-
-
-
 
     const breadcrumbItems = [
         { label: "Home", href: "/" },
@@ -78,14 +73,16 @@ const Courses: React.FC = () => {
     }
 
     return (
+        <div className="courses-page">
         <div className="hero mx-auto py-1">
-            <div className="container mx-auto py-2 px-4">
-                <Breadcrumbs items={breadcrumbItems} />
-                <h1 className="text-2xl font-semibold mb-6">Cursos</h1>
-                <CourseList courses={courses}  />
-                <Pagination currentPage={1} totalPages={10} onPageChange={() => { }} />
-            </div>
+          <div className="container mx-auto py-2 px-4">
+            <Breadcrumbs items={breadcrumbItems} />
+            <h1 className="text-2xl font-semibold mb-6">Cursos</h1>
+            <CourseList courses={courses} />
+            <Pagination currentPage={1} totalPages={10} onPageChange={() => { }} />
+          </div>
         </div>
+      </div>
     );
 };
 

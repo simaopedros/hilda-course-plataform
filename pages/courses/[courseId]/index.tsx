@@ -162,41 +162,49 @@ const CoursePage: React.FC = () => {
     };
 
     return (
-        <div className='mr-8 ml-8 mb-8'>
-            <>
-                {courseId && <Breadcrumbs items={[{ label: 'Cursos', href: '/courses' }, { label: course?.title as string }]} />}
-
-                {courseId && course && instructor && (
-                    <CourseDetails
-                        course={course}
-                        buttonText={getButtonText(isLoggedIn, isEnrolled as boolean)}
-                        onButtonClick={handleButtonClick}
-                    />
-                )}
-
-
-                <div className="grid grid-cols-1 md:grid-cols-3 gap-8 mt-10">
-                    <div className="md:col-span-2">
-                        {courseId && <Lesson title={course?.title} completed={true} id={Number.parseInt(courseId as string)} aulas={[]} videoUrl={course?.url} />}
-
-
-                    </div>
-                    <div className="md:col-span-1">
-                        {courseId && <InstructorCard
-                            name={instructor?.name as string}
-                            avatarUrl={instructor?.profilePicture as string}
-                            expertise={instructor?.expertise as string | 'Não Divulgado'} />}
-
-
-
-                        {courseId &&
-                            <ProgressTracker modules={modules} />}
-                    </div>
-                </div>
-
-
-            </>
+      <div className="course-page mr-8 ml-8 mb-8">
+      {courseId && (
+        <Breadcrumbs
+          items={[
+            { label: 'Cursos', href: '/courses' },
+            { label: course?.title as string },
+          ]}
+        />
+      )}
+  
+      {courseId && course && instructor && (
+        <CourseDetails
+          course={course}
+          buttonText={getButtonText(isLoggedIn, isEnrolled as boolean)}
+          onButtonClick={handleButtonClick}
+        />
+      )}
+  
+      <div className="content-grid grid grid-cols-1 md:grid-cols-3 gap-8 mt-10">
+        <div className="md:col-span-2">
+          {courseId && (
+            <Lesson
+              title={course?.title}
+              completed={true}
+              id={Number.parseInt(courseId as string)}
+              aulas={[]}
+              videoUrl={course?.url}
+            />
+          )}
         </div>
+        <div className="sidebar md:col-span-1">
+          {courseId && (
+            <InstructorCard
+              name={instructor?.name as string}
+              avatarUrl={instructor?.profilePicture as string}
+              expertise={instructor?.expertise as string | 'Não Divulgado'}
+            />
+          )}
+  
+          {courseId && <ProgressTracker modules={modules} />}
+        </div>
+      </div>
+    </div>
     );
 };
 
