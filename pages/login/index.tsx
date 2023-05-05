@@ -23,6 +23,14 @@ const Login: React.FC = () => {
       const userCredential = await signInWithEmailAndPassword(auth, email, password);
       const user = userCredential.user;
 
+      if (user) {
+        // Obter o token de autenticação do usuário
+        const authToken = await user.getIdToken();
+
+        // Salvar o token no localStorage
+        localStorage.setItem('authToken', authToken);
+      }
+
       console.log('Usuário logado com sucesso:', user);
       setToast({ type: 'success', message: 'Logado com Sucesso.' });
       router.push('/dashboard');

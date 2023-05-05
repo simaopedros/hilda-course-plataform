@@ -5,6 +5,7 @@ import ProgressTracker from '@/components/profile/ProgressTracker';
 import UserDashboard from '@/components/profile/UserDashboard';
 import DataCursos from '@/data/dataFake';
 import Course from '@/types/Course';
+import withAuth from '@/utils/withAuth';
 import React from 'react';
 
 const Dashboard: React.FC = () => {
@@ -62,4 +63,4 @@ const Dashboard: React.FC = () => {
     );
 };
 
-export default Dashboard;
+export default withAuth(Dashboard)

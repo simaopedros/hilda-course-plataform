@@ -9,9 +9,6 @@ import { collection, getDocs, orderBy, query } from 'firebase/firestore';
 import React, { useEffect, useState } from 'react';
 
 
-
-
-
 const Courses: React.FC = () => {
 
     const coursesRef = collection(firestore, "courses");
@@ -50,7 +47,7 @@ const Courses: React.FC = () => {
         };
 
         fetchCourses();
-    }, [q]);
+    }, []);
 
 
 

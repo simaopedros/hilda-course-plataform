@@ -1,9 +1,25 @@
 // components/navbar/Navbar.tsx
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import Link from 'next/link';
 import Image from 'next/image';
+import { getAuth, signOut } from 'firebase/auth';
+import { appFirebase } from '@/data/sdk';
+
 
 const Navbar = () => {
+
+  const handleLogout = async () => {
+    const auth = getAuth(appFirebase);
+    try {
+      await signOut(auth);
+      console.log('Usuário deslogado com sucesso');
+    } catch (error) {
+      console.error('Erro ao deslogar:', error);
+    }
+  };
+  
+
+  
   return (
     <div className="navbar bg-base-100">
       <div className="flex-1">
@@ -41,7 +57,7 @@ const Navbar = () => {
               </Link>
             </li>
             <li>
-              <Link href="/logout">
+              <Link href="/logout" onClick={handleLogout}>
                 Logout
               </Link>
             </li>

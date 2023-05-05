@@ -1,29 +1,30 @@
 //pages\courses\create-course.tsx
 
-import useAuth from "@/utils/hooks/useAuth";
-import React, { useEffect, useState } from "react";
-import CourseForm, { CourseFormValues } from "@/components/course/courseForms/CourseForm";
-import { saveCourseToFirestore, saveModuleToFirestore, setSelectedCourseIndex } from "@/utils/handles";
-import CourseList, { Course } from "@/components/course/courseForms/CourseList";
-import { fetchUserCourses } from "@/utils/fetchUserCourses";
-import { Module } from "@/components/course/courseForms/ModuleList";
-import { fetchCourseModules } from "@/utils/fetchCourseModules";
-import { DndProvider } from "react-dnd";
-import { HTML5Backend } from "react-dnd-html5-backend";
-import DraggableModuleItem from "@/components/course/courseForms/DraggableModuleItem";
-import { Class, fetchModuleClasses } from "@/utils/fetchModuleClasses";
-import ClassItem from "@/components/course/courseForms/ClassItem";
-import Modal from "react-modal"
-import ClassForm, { ClassFormValues } from "@/components/course/courseForms/ClassForm";
-import updateClassInFirestore from "@/utils/updateClassInFirestore";
-import ActionButton from "@/components/course/common/ActionButton";
-import ModuleForm, { ModuleFormValues } from "@/components/course/courseForms/ModuleForm";
 import Breadcrumbs from "@/components/breadcrumbs/Breadcrumbs";
+import ActionButton from "@/components/course/common/ActionButton";
+import ClassForm, { ClassFormValues } from "@/components/course/courseForms/ClassForm";
+import ClassItem from "@/components/course/courseForms/ClassItem";
+import CourseForm, { CourseFormValues } from "@/components/course/courseForms/CourseForm";
+import CourseList, { Course } from "@/components/course/courseForms/CourseList";
+import DraggableModuleItem from "@/components/course/courseForms/DraggableModuleItem";
+import ModuleForm, { ModuleFormValues } from "@/components/course/courseForms/ModuleForm";
+import { Module } from "@/components/course/courseForms/ModuleList";
 import ResourceForm, { ResourceFormValues } from "@/components/course/courseForms/ResourceForm";
+import ResourceItem from "@/components/course/courseForms/ResourceItem";
+import { fetchCourseModules } from "@/utils/fetchCourseModules";
+import { fetchFilteredResources } from "@/utils/fetchFilteredResources";
+import { Class, fetchModuleClasses } from "@/utils/fetchModuleClasses";
+import { fetchUserCourses } from "@/utils/fetchUserCourses";
+import { saveCourseToFirestore, saveModuleToFirestore, setSelectedCourseIndex } from "@/utils/handles";
+import useAuth from "@/utils/hooks/useAuth";
 import { saveClassToFirestore } from "@/utils/saveClassToFirestore";
 import { saveSuplementarMaterialToFirestore } from "@/utils/saveSuplementarMaterialToFirestore";
-import ResourceItem from "@/components/course/courseForms/ResourceItem";
-import { fetchFilteredResources } from "@/utils/fetchFilteredResources";
+import updateClassInFirestore from "@/utils/updateClassInFirestore";
+import withAuth from "@/utils/withAuth";
+import React, { useEffect, useState } from "react";
+import { DndProvider } from "react-dnd";
+import { HTML5Backend } from "react-dnd-html5-backend";
+import Modal from "react-modal";
 
 const CreateCourse: React.FC = () => {
     const { user, loading } = useAuth();
@@ -245,11 +246,6 @@ const CreateCourse: React.FC = () => {
 
     // ...
 
-    const openClassFormModal = (classItem: Class) => {
-        console.log("Duplo clique detectado");
-        setSelectedClass(classItem);
-        setIsClassFormModalOpen(true);
-    };
 
 
     const closeClassFormModal = () => {
@@ -450,4 +446,4 @@ const CreateCourse: React.FC = () => {
     );
 };
 
-export default CreateCourse;
+export default withAuth(CreateCourse)

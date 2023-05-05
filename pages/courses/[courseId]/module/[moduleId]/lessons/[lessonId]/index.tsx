@@ -11,6 +11,7 @@ import useAuth from '@/utils/hooks/useAuth';
 import Confetti from 'react-dom-confetti';
 import { Howl } from 'howler';
 import { GetStaticPaths, GetStaticProps } from 'next';
+import withAuth from '@/utils/withAuth';
 
 const CoursePage = () => {
   const [sidebarVisible, setSidebarVisible] = useState(true);
@@ -361,4 +362,4 @@ export const getStaticProps: GetStaticProps = async ({ params }) => {
   };
 };
 
-export default CoursePage;
+export default withAuth(CoursePage);
