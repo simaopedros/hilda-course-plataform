@@ -49,7 +49,7 @@ const Courses: React.FC = () => {
         };
 
         fetchCourses();
-    }, []);
+    }, [q]);
 
 
     const [selectedCourseId, setSelectedCourseId] = useState<string | null>(null);
