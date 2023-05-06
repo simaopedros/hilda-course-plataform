@@ -1,30 +1,40 @@
-import React, { useEffect, useRef, useState } from 'react';
-import { FaChevronLeft, FaChevronRight } from 'react-icons/fa';
-import VideoPlayer from '@/components/course/courseForms/VideoPlayer';
-import {firestore} from '@/data/firestore';
-import { arrayUnion, collection, doc, getDoc, getDocs, orderBy, query, updateDoc, where } from 'firebase/firestore';
-import { useRouter } from 'next/router';
-import ModuleList, { Lesson, Module } from '@/components/course/ModuleList';
-import getLessonIdFromURL from '@/utils/getLessonIdFromURL';
-import getCourseIdFromURL from '@/utils/getCourseIdFromURL';
-import useAuth from '@/utils/hooks/useAuth';
-import Confetti from 'react-dom-confetti';
-import { Howl } from 'howler';
-import { GetStaticPaths, GetStaticProps } from 'next';
-import withAuth from '@/utils/withAuth';
+import React, { useEffect, useRef, useState } from "react";
+import { FaChevronLeft, FaChevronRight } from "react-icons/fa";
+import VideoPlayer from "@/components/course/courseForms/VideoPlayer";
+import { firestore } from "@/data/firestore";
+import {
+  arrayUnion,
+  collection,
+  doc,
+  getDoc,
+  getDocs,
+  orderBy,
+  query,
+  updateDoc,
+  where,
+} from "firebase/firestore";
+import { useRouter } from "next/router";
+import ModuleList, { Lesson, Module } from "@/components/course/ModuleList";
+import getLessonIdFromURL from "@/utils/getLessonIdFromURL";
+import getCourseIdFromURL from "@/utils/getCourseIdFromURL";
+import useAuth from "@/utils/hooks/useAuth";
+import Confetti from "react-dom-confetti";
+import { Howl } from "howler";
+import { GetStaticPaths, GetStaticProps } from "next";
+import withAuth from "@/utils/withAuth";
 
 const CoursePage = () => {
   const [sidebarVisible, setSidebarVisible] = useState(true);
-  const [videoURL, setVideoURL] = useState('');
+  const [videoURL, setVideoURL] = useState("");
   const [modules, setModules] = useState<Module[]>([]);
-  const [lessons, setLessons] = useState<{ [UUIDModule: string]: Lesson[] }>({});
-  const [lessonTitle, setLessonTitle] = useState('');
+  const [lessons, setLessons] = useState<{ [UUIDModule: string]: Lesson[] }>(
+    {}
+  );
+  const [lessonTitle, setLessonTitle] = useState("");
   const [loadingUser, setLoadingUser] = useState(true);
   const [showConfetti, setShowConfetti] = useState(false);
 
   const { user } = useAuth();
-
-
 
   const confettiConfig = {
     angle: 90,
@@ -34,11 +44,10 @@ const CoursePage = () => {
     dragFriction: 0.12,
     duration: 3000,
     stagger: 3,
-    width: '10px',
-    height: '10px',
-    colors: ['#a864fd', '#29cdff', '#78ff44', '#ff718d', '#fdff6a'],
+    width: "10px",
+    height: "10px",
+    colors: ["#a864fd", "#29cdff", "#78ff44", "#ff718d", "#fdff6a"],
   };
-
 
   const getProfileDocId = async (userId: string) => {
     const profilesRef = collection(firestore, "profiles");
@@ -51,7 +60,6 @@ const CoursePage = () => {
       return null;
     }
   };
-
 
   const router = useRouter();
 
@@ -66,14 +74,13 @@ const CoursePage = () => {
       setLoadingUser(true);
     }
 
-
     if (router.isReady) {
       const lessons = getLessonIdFromURL();
       const UUIDCourse = getCourseIdFromURL();
 
       const fetchVideoURL = async () => {
         if (lessons) {
-          const lessonDocRef = doc(firestore, 'aulas', lessons);
+          const lessonDocRef = doc(firestore, "aulas", lessons);
           const lessonDocSnap = await getDoc(lessonDocRef);
           if (lessonDocSnap.exists()) {
             const lessonData = lessonDocSnap.data();
@@ -88,17 +95,20 @@ const CoursePage = () => {
 
         if (UUIDCourse) {
           const modulesQuery = query(
-            collection(firestore, 'modules'),
-            where('UUIDCourse', '==', UUIDCourse),
-            orderBy('displayOrder', 'asc')
+            collection(firestore, "modules"),
+            where("UUIDCourse", "==", UUIDCourse),
+            orderBy("displayOrder", "asc")
           );
 
           console.log("modulesQuery: " + JSON.stringify(modulesQuery));
 
           try {
             const querySnapshot = await getDocs(modulesQuery);
-            console.log('querySnapshot:', querySnapshot);
-            const modulesData = querySnapshot.docs.map((doc) => ({ ...doc.data(), id: doc.id }));
+            console.log("querySnapshot:", querySnapshot);
+            const modulesData = querySnapshot.docs.map((doc) => ({
+              ...doc.data(),
+              id: doc.id,
+            }));
             setModules(modulesData);
             console.log("Modulos: " + JSON.stringify(modulesData));
 
@@ -106,9 +116,9 @@ const CoursePage = () => {
             const lessonsData: { [moduleId: string]: Lesson[] } = {};
             for (const modulo of modulesData) {
               const lessonsQuery = query(
-                collection(firestore, 'aulas'),
-                where('UUIDModule', '==', modulo.id),
-                orderBy('displayOrder', 'asc')
+                collection(firestore, "aulas"),
+                where("UUIDModule", "==", modulo.id),
+                orderBy("displayOrder", "asc")
               );
               const lessonsSnapshot = await getDocs(lessonsQuery);
               lessonsData[modulo.id] = lessonsSnapshot.docs.map((doc) => ({
@@ -118,22 +128,16 @@ const CoursePage = () => {
                 displayOrder: doc.data().displayOrder,
                 duration: doc.data().duration,
               }));
-
-
             }
             setLessons(lessonsData); // Set the lessons state
-
           } catch (error) {
-            console.error('Error fetching modules:', error);
+            console.error("Error fetching modules:", error);
           }
         }
       };
 
       fetchVideoURL();
       fetchModules();
-
-
-
     }
   }, [user, router.isReady]);
 
@@ -143,26 +147,38 @@ const CoursePage = () => {
 
   const UUIDCourse = getCourseIdFromURL();
 
-
-
-
   //----
 
-  const findNextLessonAndModule = (currentLessonId: string, currentModuleId: string) => {
-    let nextLessonId = '';
-    let nextModuleId = '';
+  const findNextLessonAndModule = (
+    currentLessonId: string,
+    currentModuleId: string
+  ) => {
+    let nextLessonId = "";
+    let nextModuleId = "";
 
-    const currentModule = modules.find((module) => module.id === currentModuleId);
+    const currentModule = modules.find(
+      (module) => module.id === currentModuleId
+    );
     if (currentModule) {
       const currentModuleLessons = lessons[currentModuleId];
 
-      const currentLessonIndex = currentModuleLessons.findIndex((lesson) => lesson.id === currentLessonId);
-      if (currentLessonIndex !== -1 && currentLessonIndex < currentModuleLessons.length - 1) {
+      const currentLessonIndex = currentModuleLessons.findIndex(
+        (lesson) => lesson.id === currentLessonId
+      );
+      if (
+        currentLessonIndex !== -1 &&
+        currentLessonIndex < currentModuleLessons.length - 1
+      ) {
         nextLessonId = currentModuleLessons[currentLessonIndex + 1].id;
       } else {
         // Encontrar o próximo módulo
-        const currentModuleIndex = modules.findIndex((module) => module.id === currentModuleId);
-        if (currentModuleIndex !== -1 && currentModuleIndex < modules.length - 1) {
+        const currentModuleIndex = modules.findIndex(
+          (module) => module.id === currentModuleId
+        );
+        if (
+          currentModuleIndex !== -1 &&
+          currentModuleIndex < modules.length - 1
+        ) {
           nextModuleId = modules[currentModuleIndex + 1].id as string;
 
           // Definir a próxima aula como a primeira aula do próximo módulo
@@ -177,8 +193,6 @@ const CoursePage = () => {
     return { nextLessonId, nextModuleId };
   };
 
-
-
   const completeLesson = async () => {
     if (user) {
       const currentLessonId = getLessonIdFromURL();
@@ -191,7 +205,6 @@ const CoursePage = () => {
         currentLessonId as string,
         currentModuleId as string
       );
-
 
       // Encontre o documento do perfil do usuário
       const profileDocId = await getProfileDocId(user.uid);
@@ -249,12 +262,10 @@ const CoursePage = () => {
     }
   };
 
-
-
   //====public\audio\successful.mp3
   const playMissionCompleteSound = () => {
     const sound = new Howl({
-      src: ['/audio/successful.mp3'],
+      src: ["/audio/successful.mp3"],
       volume: 0.5,
       onend: () => {
         setShowConfetti(false);
@@ -265,41 +276,48 @@ const CoursePage = () => {
     sound.play();
   };
 
-
-
-
   return (
-    <div className="flex flex-col h-full  ">
+    <div className="flex flex-col min-h-screen">
       {/* Header */}
-      <header className="bg-base-200 h-16 p-4 flex justify-between items-center pl-8 ">
-        <div className="w-[60%] text-xl font-semibold">{lessonTitle}</div>
+      <header className="bg-base-200 h-16 p-4 flex justify-between items-center">
+        <div className="ml-8 w-[60%] text-xl font-semibold">{lessonTitle}</div>
 
         {/* Complete Lesson Button */}
-        <div className="ml-8 mr-5 btn btn-primary w-[25%]" onClick={completeLesson}>
-          <button className="full-width" >
-            Concluir Aula
-          </button>
-          <Confetti active={showConfetti} config={confettiConfig} />
-        </div>
-
-
+        <div className="mr-8 w-[25%]">
+  <button
+    className="w-full btn btn-primary"
+    onClick={completeLesson}
+  >
+    Concluir Aula
+  </button>
+  <Confetti active={showConfetti} config={confettiConfig} />
+</div>
 
       </header>
       {/* Content */}
-      <div className="flex-grow flex background-white">
+      <div className="flex-grow flex bg-white">
         {/* Main Content */}
-        <div className={`h-full  ml-8 mr-8 flex-grow transition-all duration-300 ${sidebarVisible ? 'lg:w-[70%]' : 'w-full'}`}>
-
-          <div className="bg-gray-900 h-[60%] ">
-            <VideoPlayer key={videoURL} videoId={videoURL}/>
+        <div
+          className={`h-full ml-8 mr-8 flex-grow transition-all duration-300 ${
+            sidebarVisible ? "lg:w-[70%]" : "w-full"
+          }`}
+        >
+          <div className="bg-gray-900 h-[60%]">
+            <VideoPlayer key={videoURL} videoId={videoURL} />
           </div>
 
           {/* Comments Area */}
-          <div className="bg-white p-4 h-[40%]">Área de comentários {'EM BREVE...'}</div>
+          <div className="bg-white p-4 h-[40%] border-t border-gray-300">
+            Área de comentários {"EM BREVE..."}
+          </div>
         </div>
 
         {/* Sidebar */}
-        <div className={`pr-2 pl-2 bg-gray-100 transition-all duration-300 ${sidebarVisible ? 'w-[30%] lg:block' : 'hidden'} overflow-y-auto max-h-block`}>
+        <div
+          className={`pr-2 pl-2 bg-gray-100 transition-all duration-300 ${
+            sidebarVisible ? "w-[30%] lg:block" : "hidden"
+          } overflow-y-auto max-h-block`}
+        >
           <div className="p-4">
             <ModuleList
               modules={modules}
@@ -307,16 +325,16 @@ const CoursePage = () => {
               onLessonClick={(lessonId) => {
                 let clickedLesson;
                 for (const moduleId in lessons) {
-                  clickedLesson = lessons[moduleId]?.find((l) => l.id === lessonId);
+                  clickedLesson = lessons[moduleId]?.find(
+                    (l) => l.id === lessonId
+                  );
                   if (clickedLesson) break;
                 }
                 if (clickedLesson) {
                   setVideoURL(clickedLesson.videoURL as string);
-                  setLessonTitle(clickedLesson.title as string); // Adicione esta linha
+                  setLessonTitle(clickedLesson.title as string);
                 }
               }}
-
-
             />
           </div>
         </div>
@@ -326,12 +344,14 @@ const CoursePage = () => {
         className="fixed bottom-4 right-4 lg:right-14 btn btn-circle btn-accent"
         onClick={toggleSidebar}
       >
-        {sidebarVisible ? <FaChevronRight className="text-xl" /> : <FaChevronLeft className="text-xl" />}
+        {sidebarVisible ? (
+          <FaChevronRight className="text-xl" />
+        ) : (
+          <FaChevronLeft className="text-xl" />
+        )}
       </button>
     </div>
   );
-
-
 };
 
 export const getStaticPaths: GetStaticPaths = async () => {

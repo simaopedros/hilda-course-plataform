@@ -83,43 +83,43 @@ const ModuleList: React.FC<ModuleListProps> = ({ modules, courseID, onLessonClic
   };
   return (
     <div className="space-y-4">
-      {modules.map((module) => (
-        <div
-          key={module.id}
-          className={`p-4 rounded-lg border-2 border-gray-300 cursor-pointer ${expandedModuleId === module.id ? 'bg-gray-200' : 'bg-white'
-            }`}
-          onClick={() => toggleModule(module.id as string)}
-        >
-          <h3 className="text-lg font-semibold">{module.title}</h3>
-          <p className="text-sm text-gray-600">{module.description}</p>
-          {expandedModuleId === module.id && (
-            <div className="mt-4">
-              <div className="list-disc list-inside">
-                {lessons[module.id]?.map((lesson) => (
-                  <div key={lesson.id} className="text-sm">
-                    <LessonItem
-                      lesson={{
-                        id: lesson.id,
-                        title: lesson.title,
-                        courseId: courseID,
-                        moduleId: module.id as string,
-                        duration: lesson.duration,
-                      }}
-                      completed={false}
-                      onToggleCompleted={function (lessonId: string): void {
-                        throw new Error('Function not implemented.');
-                      }}
-                      onLessonClick={onLessonClick} // Atualize esta linha
-                    />
-                  </div>
-                ))}
-              </div>
+    {modules.map((module) => (
+      <div
+        key={module.id}
+        className={`p-4 rounded-lg border-2 border-gray-300 cursor-pointer ${
+          expandedModuleId === module.id ? "bg-gray-200" : "bg-white"
+        }`}
+        onClick={() => toggleModule(module.id as string)}
+      >
+        <h3 className="text-lg font-semibold">{module.title}</h3>
+        <p className="text-sm text-gray-600">{module.description}</p>
+        {expandedModuleId === module.id && (
+          <div className="mt-4">
+            <div className="list-disc list-inside">
+              {lessons[module.id]?.map((lesson) => (
+                <div key={lesson.id} className="text-sm">
+                  <LessonItem
+                    lesson={{
+                      id: lesson.id,
+                      title: lesson.title,
+                      courseId: courseID,
+                      moduleId: module.id as string,
+                      duration: lesson.duration,
+                    }}
+                    completed={false}
+                    onToggleCompleted={(lessonId: string) => {
+                      // Handle lesson completion here
+                    }}
+                    onLessonClick={onLessonClick}
+                  />
+                </div>
+              ))}
             </div>
-          )}
-
-        </div>
-      ))}
-    </div>
+          </div>
+        )}
+      </div>
+    ))}
+  </div>
   );
 };
 

@@ -29,53 +29,54 @@ const ClassForm: React.FC<ClassFormProps> = ({ onSubmit, initialValues }) => {
 
   return (
     <form onSubmit={handleSubmit} className="space-y-4">
-      <div>
-        <label htmlFor="title" className="block text-sm font-medium">Título</label>
-        <input
-          id="title"
-          type="text"
-          value={title}
-          onChange={(e) => setTitle(e.target.value)}
-          className="w-full p-2 border border-gray-600 rounded"
-        />
-      </div>
-
-      <div>
-        <label htmlFor="urlAula" className="block text-sm font-medium">( URL | ID ) da Aula </label>
-        <input
-          id="urlAula"
-          type="text"
-          value={urlAula}
-          onChange={(e) => setUrlAula(e.target.value)}
-          className="w-full p-2 border border-gray-600 rounded"
-        />
-      </div>
-
-      <div>
-        <label htmlFor="duration" className="block text-sm font-medium">Duração (minutos)</label>
-        <input
-          id="duration"
-          type="number"
-          value={duration}
-          onChange={(e) => setDuration(Number(e.target.value))}
-          className="w-full p-2 border border-gray-600 rounded"
-        />
-      </div>
-
-      <div>
-        <label htmlFor="description" className="block text-sm font-medium">Descrição</label>
-        <textarea
-          id="description"
-          value={description}
-          onChange={(e) => setDescription(e.target.value)}
-          className="w-full p-2 border border-gray-600 rounded"
-        />
-      </div>
-
-      <button type="submit" className="bg-blue-500 text-white px-4 py-2 rounded">
-        Salvar
-      </button>
-    </form>
+    <div className="form-control">
+      <label htmlFor="title" className="label">Título</label>
+      <input
+        id="title"
+        type="text"
+        value={title}
+        onChange={(e) => setTitle(e.target.value)}
+        className="input border-gray-600"
+      />
+    </div>
+  
+    <div className="form-control">
+      <label htmlFor="urlAula" className="label">( URL | ID ) da Aula </label>
+      <input
+        id="urlAula"
+        type="text"
+        value={urlAula}
+        onChange={(e) => setUrlAula(e.target.value)}
+        className="input border-gray-600"
+      />
+    </div>
+  
+    <div className="form-control">
+      <label htmlFor="duration" className="label">Duração (minutos)</label>
+      <input
+        id="duration"
+        type="number"
+        value={duration}
+        onChange={(e) => setDuration(Number(e.target.value))}
+        className="input border-gray-600"
+      />
+    </div>
+  
+    <div className="form-control">
+      <label htmlFor="description" className="label">Descrição</label>
+      <textarea
+        id="description"
+        value={description}
+        onChange={(e) => setDescription(e.target.value)}
+        className="textarea border-gray-600"
+      />
+    </div>
+  
+    <button type="submit" className="btn btn-primary">
+      Salvar
+    </button>
+  </form>
+  
   );
 };
 

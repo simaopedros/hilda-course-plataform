@@ -9,17 +9,11 @@ const VideoPlayer: React.FC<VideoPlayerProps> = ({ videoId }) => {
 
   return (
  
-    <div style={{ position: 'relative', paddingTop: '56.25%' }}>
+    <div className="relative bg-black" style={{ paddingTop: '56.25%' }}>
       <iframe
         src={videoSrc}
         loading="lazy"
-        style={{
-          border: 'none',
-          position: 'absolute',
-          top: 0,
-          height: '100%',
-          width: '100%',
-        }}
+        className="absolute top-0 left-0 w-full h-full border-none"
         allow="accelerometer; gyroscope; autoplay; encrypted-media; picture-in-picture;"
         allowFullScreen={true}
       ></iframe>

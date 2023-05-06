@@ -61,23 +61,23 @@ const DraggableModuleItem: React.FC<DraggableModuleItemProps> = ({
   const styles = `mb-4 bg-white rounded-lg p-4 border border-gray-200 cursor-move ${isDragging ? "opacity-50" : ""}`;
 
   return (
-    <div ref={ref} className={styles} onClick={() => onModuleClick(UIDModule)}>
-      <div className="flex justify-between items-center">
-        <div className="flex items-center">
-          {isSelected && (
-            <FiChevronRight className="mr-2 text-stone-950" />
-          )}
-          {!isSelected && (
-            <UpDownArrows />
-          )}
-          
-        </div>
-        <div>
-          <h3 className="text-lg font-semibold">{title}</h3>
-          <p className="text-sm text-gray-500">{description}</p>
-        </div>
-      </div>
+<div ref={ref} className={`${styles} p-2 border-2 border-gray-300 rounded-lg cursor-pointer hover:bg-gray-200`} onClick={() => onModuleClick(UIDModule)}>
+  <div className="flex justify-between items-center">
+    <div className="flex items-center">
+      {isSelected && (
+        <FiChevronRight className="mr-2 text-stone-950" />
+      )}
+      {!isSelected && (
+        <UpDownArrows />
+      )}
     </div>
+    <div>
+      <h3 className="text-lg font-semibold">{title}</h3>
+      <p className="text-sm text-gray-500">{description}</p>
+    </div>
+  </div>
+</div>
+
 
   );
 };

@@ -1,8 +1,8 @@
-import React, { ReactNode } from 'react';
-import Navbar from '../navbar/Navbar';
-import Footer from '../footer/Footer';
-import useAuth from '@/utils/hooks/useAuth';
-import NavbarLogoff from '../navbar/NavbarLogoff';
+import React, { ReactNode } from "react";
+import Navbar from "../navbar/Navbar";
+import Footer from "../footer/Footer";
+import useAuth from "@/utils/hooks/useAuth";
+import NavbarLogoff from "../navbar/NavbarLogoff";
 
 type LayoutProps = {
   children: ReactNode;

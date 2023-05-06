@@ -48,7 +48,10 @@ const LessonItem: React.FC<LessonItemProps> = ({ lesson, completed, onToggleComp
     return `${hours}h:${minutes > 0 ? `${minutes}` : ''}m`;
   }
   return (
-    <div className="border m-1 border-gray-300 rounded p-1 flex items-center space-x-4 cursor-pointer" onClick={handleClick}  >
+    <div
+      className="border m-1 border-gray-300 rounded p-2 flex items-center space-x-4 cursor-pointer bg-white hover:bg-gray-100"
+      onClick={handleClick}
+    >
       <input
         type="checkbox"
         className="form-checkbox text-accent"
@@ -56,7 +59,9 @@ const LessonItem: React.FC<LessonItemProps> = ({ lesson, completed, onToggleComp
         onChange={() => onToggleCompleted(lesson.id)}
       />
       <p className="text-xs flex-grow">{lesson.title}</p>
-      <div className="badge badge-outline">{toHoursAndMinutes(lesson.duration)}</div>
+      <div className="badge badge-outline">
+        {toHoursAndMinutes(lesson.duration)}
+      </div>
     </div>
   );
 };
