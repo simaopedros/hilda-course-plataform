@@ -21,54 +21,34 @@ const Navbar = () => {
   };
 
   return (
-    <nav className="navbar bg-base-100">
-    <div className="flex-1">
-      <a href="/" className="btn btn-ghost normal-case text-xl">
-        SuaMarca
-      </a>
+<div className="navbar bg-base-100">
+  <div className="flex-1">
+    <Link href="/" className="btn btn-ghost normal-case text-xl">
+      Nome do Site
+    </Link>
+  </div>
+  <div className="flex gap-2">
+    <div className="form-control">
+      <input type="text" placeholder="Search" className="input input-bordered" />
     </div>
-    <div className="flex-none gap-2">
-      <div className="form-control">
-        <input
-          type="text"
-          placeholder="Search"
-          className="input input-bordered"
-        />
-      </div>
-      <div className="dropdown dropdown-end">
-        <label tabIndex={0} className="btn btn-ghost btn-circle avatar flex-shrink-0 max-w-[40px]">
-          {/* <div className="w-10 rounded-full"> */}
-            <Image
-              src="https://pbs.twimg.com/profile_images/1596571012237254657/M37hirAG_400x400.jpg"
-              alt="Avatar"
-              width={40}
-              height={40}
-              className="rounded-full"
-            />
-          {/* </div> */}
-        </label>
-        <ul
-          tabIndex={0}
-          className="mt-3 p-2 shadow menu menu-compact dropdown-content bg-base-100 rounded-box w-52"
-        >
-          <li>
-            <a href="/profile" className="justify-between">
-              Profile
-              <span className="badge">New</span>
-            </a>
-          </li>
-          <li>
-            <a href="/settings">Settings</a>
-          </li>
-          <li>
-            <a href="/logout" onClick={handleLogout}>
-              Logout
-            </a>
-          </li>
-        </ul>
-      </div>
+    <div className="dropdown dropdown-end">
+      <button tabIndex={0} className="btn btn-ghost">
+        Menu
+      </button>
+      <ul tabIndex={0} className="mt-3 p-2 shadow menu menu-compact dropdown-content bg-base-100 rounded-box w-52">
+        <li>
+          <Link href="/profile" className="justify-between">
+            Profile
+            <span className="badge">New</span>
+          </Link>
+        </li>
+        <li><Link href="/settings">Settings</Link></li>
+        <li><button onClick={handleLogout}>Logout</button></li>
+      </ul>
     </div>
-  </nav>
+  </div>
+</div>
+
   );
 };
 
