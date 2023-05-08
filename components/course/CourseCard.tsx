@@ -8,11 +8,10 @@ import Image from "next/image";
 
 type CourseItemProps = {
   course: Course;
-  courseUUID?: string;
   botonText?: string;
 };
 
-const CourseCard: React.FC<CourseItemProps> = ({ course, courseUUID, botonText }) => {
+const CourseCard: React.FC<CourseItemProps> = ({ course, botonText }) => {
   console.log(course.coverImage);
 
   const router = useRouter();

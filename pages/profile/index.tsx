@@ -2,6 +2,7 @@
 
 import UserProfile from '@/components/profile/UserProfile';
 import User from '@/types/User';
+import withAuth from '@/utils/withAuth';
 import React, { useState } from 'react';
 
 
@@ -35,4 +36,4 @@ const Profile: React.FC = () => {
   );
 };
 
-export default Profile;
+export default withAuth(Profile);

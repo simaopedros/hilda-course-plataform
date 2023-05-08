@@ -1,6 +1,7 @@
 // pages/settings.tsx
 import React, { useState } from 'react';
 import Head from 'next/head';
+import withAuth from '@/utils/withAuth';
 
 const Settings: React.FC = () => {
   const [username, setUsername] = useState('');
@@ -56,4 +57,4 @@ const Settings: React.FC = () => {
   );
 };
 
-export default Settings;
+export default withAuth(Settings);

@@ -1,7 +1,7 @@
 // components/courseList/CourseList.tsx
 import React from 'react';
 import CourseCard from './CourseCard';
-import { Course } from './courseForms/CourseList';
+import Course from "@/types/Course";
 
 
 
@@ -17,7 +17,6 @@ const CourseList = ({ courses }: CourseListProps) => {
       <CourseCard
         key={id}
         course={course}
-        courseUUID={course.UUID}
       />
     ))}
   </div>
