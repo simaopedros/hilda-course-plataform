@@ -36,6 +36,7 @@ module.exports = {
       "www.laberit.com",
       "www.iped.com.br",
       "example.com",
+      "doodleipsum.com",
     ],
   },
 };

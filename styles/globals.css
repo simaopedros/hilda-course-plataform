@@ -147,3 +147,12 @@ body {
 .bg-primary-darker {
   background-color: #0073e6;
 }
+
+
+.text-primary {
+  color: var(--primary-color);
+}
+
+.text-gray-700 {
+  color: var(--text-color);
+}

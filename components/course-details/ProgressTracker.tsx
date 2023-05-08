@@ -8,7 +8,7 @@ interface ProgressTrackerProps {
   modules: Module[];
 }
 
-const ProgressTracker: React.FC<ProgressTrackerProps> = ({ modules}) => {
+const ProgressTracker: React.FC<ProgressTrackerProps> = ({ modules }) => {
   return (
 <div className="bg-white shadow-md rounded-md p-4">
   <h3 className="text-xl font-semibold mb-2">Módulos do Curso</h3>

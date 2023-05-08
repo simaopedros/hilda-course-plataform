@@ -5,6 +5,7 @@ import Image from "next/image";
 import { getAuth, signOut } from "firebase/auth";
 import { appFirebase } from "@/data/sdk";
 import { useRouter } from "next/router";
+import LogoMarca from "./LogoMarca";
 
 const Navbar = () => {
   const router = useRouter();
@@ -24,7 +25,7 @@ const Navbar = () => {
 <div className="navbar bg-base-100">
   <div className="flex-1">
     <Link href="/" className="btn btn-ghost normal-case text-xl">
-      Nome do Site
+      <LogoMarca />
     </Link>
   </div>
   <div className="flex gap-2">

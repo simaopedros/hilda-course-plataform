@@ -27,11 +27,11 @@ const UserProfile: React.FC<UserProfileProps> = ({ user, onSubmit }) => {
     <div className="bg-white shadow-md rounded-lg p-6">
       <div className="flex flex-col md:flex-row items-center">
         <Image
-          src={user.profilePicture || '/path/to/default-profile-picture.png'}
+          src={'https://pbs.twimg.com/profile_images/1596571012237254657/M37hirAG_400x400.jpg'}
           alt="Profile"
           className="w-32 h-32 object-cover rounded-full"
-          width={96}
-          height={96}
+          width={500}
+          height={500}
         />
         <div className="md:ml-8 mt-4 md:mt-0">
           {editMode ? (

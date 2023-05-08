@@ -15,6 +15,8 @@ export default interface Course {
       avatarUrl?: string;
       expertise: string;
     };
+    lastModule?: string;
+    lastClass?: string;
     price?: number;
     createdAt?: Date;
     status?: "active" | "inactive" | "in-development";

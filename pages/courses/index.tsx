@@ -1,12 +1,10 @@
-// pages/courses/index.tsx
-
-import Breadcrumbs from '@/components/breadcrumbs/Breadcrumbs';
-import CourseList from '@/components/course/CourseList';
-import { Course } from '@/components/course/courseForms/CourseList';
-import Pagination from '@/components/pagination/Pagination';
-import { firestore } from '@/data/firestore';
-import { collection, getDocs, orderBy, query } from 'firebase/firestore';
-import React, { useEffect, useState } from 'react';
+import Breadcrumbs from "@/components/breadcrumbs/Breadcrumbs";
+import CourseList from "@/components/course/CourseList";
+import { Course } from "@/components/course/courseForms/CourseList";
+import Pagination from "@/components/pagination/Pagination";
+import { firestore } from "@/data/firestore";
+import { collection, getDocs, orderBy, query } from "firebase/firestore";
+import React, { useEffect, useState } from "react";
 
 const Courses: React.FC = () => {
   const [courses, setCourses] = useState<Course[]>([]);
@@ -14,8 +12,8 @@ const Courses: React.FC = () => {
   const [error, setError] = useState<Error | null>(null);
 
   const fetchCourses = async () => {
-    const coursesRef = collection(firestore, 'courses');
-    const q = query(coursesRef, orderBy('title'));
+    const coursesRef = collection(firestore, "courses");
+    const q = query(coursesRef, orderBy("title"));
 
     try {
       setLoading(true);
@@ -47,16 +45,9 @@ const Courses: React.FC = () => {
     fetchCourses();
   }, []);
 
-  const [selectedCourseId, setSelectedCourseId] = useState<string | null>(null);
-
-  const onCourseSelection = (selectedCourseId: string, index: number) => {
-    setSelectedCourseId(selectedCourseId);
-    // Realize outras ações necessárias aqui
-  };
-
   const breadcrumbItems = [
-    { label: 'Home', href: '/' },
-    { label: 'Cursos' },
+    { label: "Home", href: "/" },
+    { label: "Cursos" },
   ];
 
   if (loading) {
@@ -68,13 +59,13 @@ const Courses: React.FC = () => {
   }
 
   return (
-    <div className="courses-page">
+    <div className="courses-page mr-8 ml-8 mb-8">
       <div className="hero mx-auto py-1">
         <div className="container mx-auto py-2 px-4">
           <Breadcrumbs items={breadcrumbItems} />
           <h1 className="text-2xl font-semibold mb-6">Cursos</h1>
           <CourseList courses={courses} />
-          <Pagination currentPage={1} totalPages={10} onPageChange={() => { }} />
+          <Pagination currentPage={1} totalPages={10} onPageChange={() => {}} />
         </div>
       </div>
     </div>

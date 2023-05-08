@@ -3,6 +3,7 @@ import { FaChevronLeft, FaChevronRight } from "react-icons/fa";
 import VideoPlayer from "@/components/course/courseForms/VideoPlayer";
 import { firestore } from "@/data/firestore";
 import {
+  addDoc,
   arrayUnion,
   collection,
   doc,
@@ -10,6 +11,7 @@ import {
   getDocs,
   orderBy,
   query,
+  setDoc,
   updateDoc,
   where,
 } from "firebase/firestore";
@@ -211,37 +213,33 @@ const CoursePage = () => {
 
       if (profileDocId) {
         const profileDocRef = doc(firestore, "profiles", profileDocId);
-        const profileData: any = {
-          lastClass: nextLessonId || "",
-        };
+        const profileDocSnapshot = await getDoc(profileDocRef);
+        const profileData = profileDocSnapshot.data();
 
-        if (nextModuleId) {
-          profileData.lastModule = nextModuleId;
-        }
+        let courses = profileData?.courses || [];
 
-        await updateDoc(profileDocRef, profileData);
-
-        // Adicione o curso à lista de cursos concluídos do usuário (se ainda não estiver na lista)
-        const userCoursesRef = collection(
-          firestore,
-          "profiles",
-          profileDocId,
-          "courses"
+        // Procura pelo curso no array de cursos
+        const courseIndex = courses.findIndex(
+          (course) => course.UIDCourse === currentCourseId
         );
-        const userCoursesQuery = query(
-          userCoursesRef,
-          where("UIDCourse", "==", currentCourseId)
-        );
-        const userCoursesSnap = await getDocs(userCoursesQuery);
-        if (userCoursesSnap.empty) {
-          await updateDoc(profileDocRef, {
-            courses: arrayUnion({
-              UIDCourse: currentCourseId,
-              lastClass: nextLessonId || "",
-              lastModule: nextModuleId || "",
-            }),
+
+        if (courseIndex === -1) {
+          // Se o curso não estiver no array, adiciona um novo objeto de curso
+          courses.push({
+            UIDCourse: currentCourseId,
+            lastClass: nextLessonId || "",
+            lastModule: nextModuleId || "",
           });
+        } else {
+          // Se o curso já estiver no array, atualiza os campos lastClass e lastModule
+          courses[courseIndex] = {
+            ...courses[courseIndex],
+            lastClass: nextLessonId || "",
+            lastModule: nextModuleId || "",
+          };
         }
+
+        await updateDoc(profileDocRef, { courses });
 
         // Redirecionar o usuário para a próxima aula, se houver
         const redirectToNextLesson = () => {
@@ -257,7 +255,7 @@ const CoursePage = () => {
         };
 
         playMissionCompleteSound();
-        setTimeout(redirectToNextLesson, 2000); // Aguarda 3 segundos antes de redirecionar
+        setTimeout(redirectToNextLesson, 2000); // Aguarda 2 segundos antes de redirecionar
       }
     }
   };
@@ -284,15 +282,11 @@ const CoursePage = () => {
 
         {/* Complete Lesson Button */}
         <div className="mr-8 w-[25%]">
-  <button
-    className="w-full btn btn-primary"
-    onClick={completeLesson}
-  >
-    Concluir Aula
-  </button>
-  <Confetti active={showConfetti} config={confettiConfig} />
-</div>
-
+          <button className="w-full btn btn-primary" onClick={completeLesson}>
+            Concluir Aula
+          </button>
+          <Confetti active={showConfetti} config={confettiConfig} />
+        </div>
       </header>
       {/* Content */}
       <div className="flex-grow flex bg-white">
