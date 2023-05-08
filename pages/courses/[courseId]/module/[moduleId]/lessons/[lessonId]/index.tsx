@@ -3,15 +3,12 @@ import { FaChevronLeft, FaChevronRight } from "react-icons/fa";
 import VideoPlayer from "@/components/course/courseForms/VideoPlayer";
 import { firestore } from "@/data/firestore";
 import {
-  addDoc,
-  arrayUnion,
   collection,
   doc,
   getDoc,
   getDocs,
   orderBy,
   query,
-  setDoc,
   updateDoc,
   where,
 } from "firebase/firestore";
@@ -220,7 +217,7 @@ const CoursePage = () => {
 
         // Procura pelo curso no array de cursos
         const courseIndex = courses.findIndex(
-          (course) => course.UIDCourse === currentCourseId
+          (course: { UIDCourse: string | null; }) => course.UIDCourse === currentCourseId
         );
 
         if (courseIndex === -1) {

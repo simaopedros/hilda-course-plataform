@@ -9,16 +9,17 @@ import Image from "next/image";
 type CourseItemProps = {
   course: Course;
   courseUUID?: string;
+  botonText?: string;
 };
 
-const CourseCard: React.FC<CourseItemProps> = ({ course, courseUUID }) => {
+const CourseCard: React.FC<CourseItemProps> = ({ course, courseUUID, botonText }) => {
   console.log(course.coverImage);
 
   const router = useRouter();
 
 const handleStartCourse = () => {
   if (course.lastModule && course.lastClass) {
-    router.push(`/courses/${course.id}/modules/${course.lastModule}/lessons/${course.lastClass}`);
+    router.push(`/courses/${course.id}/module/${course.lastModule}/lessons/${course.lastClass}`);
   } else {
     // Se não houver progresso armazenado, direcione o aluno para a primeira aula do primeiro módulo
     // Você pode ajustar isso de acordo com a estrutura do seu curso
@@ -54,7 +55,7 @@ const handleStartCourse = () => {
             className="w-full btn btn-primary"
             onClick={handleStartCourse}
           >
-            Detalhes
+            {botonText?botonText: "Matricular"}
           </button>
         </div>
       </div>
