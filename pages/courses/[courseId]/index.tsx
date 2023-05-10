@@ -150,7 +150,7 @@ const CoursePage: React.FC = () => {
 
 
     function handleButtonClick() {
-    router.push(`../courses/${courseId}/module/${lastModule as string}/lessons/${lastClass as string}`);
+    router.push(`../courses/${courseId}/module/${lastModule?lastModule:0}/lessons/${lastClass?lastClass:0}`);
       }
 
     const getButtonText = (isLoggedIn: boolean, isEnrolled: boolean): string => {

@@ -199,11 +199,6 @@ const Dashboard: React.FC = () => {
   return (
     <div className="bg-white ml-8 mr-8 ">
       <div className="container mx-auto py-8 mt-4 mb-4">
-        <UserDashboard
-          name="John Doe"
-          profilePicture="https://pbs.twimg.com/profile_images/1596571012237254657/M37hirAG_400x400.jpg"
-          description="Lorem ipsum dolor sit amet, consectetur adipiscing elit."
-        />
 
         <h2 className="text-3xl font-bold mb-6 mt-6">Cursos matriculados</h2>
 

@@ -1,55 +1,68 @@
 //pages\courses\create-course.tsx
 
-import Breadcrumbs from "@/components/breadcrumbs/Breadcrumbs";
-import ActionButton from "@/components/course/common/ActionButton";
-import ClassForm, {
-  ClassFormValues,
-} from "@/components/course/courseForms/ClassForm";
-import ClassItem from "@/components/course/courseForms/ClassItem";
-import CourseForm, {
-  CourseFormValues,
-} from "@/components/course/courseForms/CourseForm";
-import CourseList, { Course } from "@/components/course/courseForms/CourseList";
-import DraggableModuleItem from "@/components/course/courseForms/DraggableModuleItem";
-import ModuleForm, {
-  ModuleFormValues,
-} from "@/components/course/courseForms/ModuleForm";
-import { Module } from "@/components/course/courseForms/ModuleList";
-import ResourceForm, {
-  ResourceFormValues,
-} from "@/components/course/courseForms/ResourceForm";
-import ResourceItem from "@/components/course/courseForms/ResourceItem";
-import { fetchCourseModules } from "@/utils/fetchCourseModules";
-import { fetchFilteredResources } from "@/utils/fetchFilteredResources";
-import { Class, fetchModuleClasses } from "@/utils/fetchModuleClasses";
-import { fetchUserCourses } from "@/utils/fetchUserCourses";
+//importação de componentes
 import {
+  ActionButton,
+  Breadcrumbs,
+  ClassForm,
+  ClassFormValues,
+  ClassItem,
+  Course,
+  CourseForm,
+  CourseFormValues,
+  CourseList,
+  DraggableClassItem,
+  DraggableModuleItem,
+  Module,
+  ModuleForm,
+  ModuleFormValues,
+  ResourceForm,
+  ResourceFormValues,
+  ResourceItem,
+} from "@/components";
+
+//Importação de Funções internas
+import {
+  Class,
+  fetchCourseModules,
+  fetchFilteredResources,
+  fetchModuleClasses,
+  fetchUserCourses,
+  saveClassToFirestore,
   saveCourseToFirestore,
   saveModuleToFirestore,
+  saveSuplementarMaterialToFirestore,
   setSelectedCourseIndex,
-} from "@/utils/handles";
-import useAuth from "@/utils/hooks/useAuth";
-import { saveClassToFirestore } from "@/utils/saveClassToFirestore";
-import { saveSuplementarMaterialToFirestore } from "@/utils/saveSuplementarMaterialToFirestore";
-import updateClassInFirestore from "@/utils/updateClassInFirestore";
-import withAuth from "@/utils/withAuth";
+  updateClassInFirestore,
+  updateModulePositions,
+  useAuth,
+  withAuth,
+} from "@/utils";
+// importação de pacotes
+
 import React, { useEffect, useState } from "react";
 import { DndProvider } from "react-dnd";
 import { HTML5Backend } from "react-dnd-html5-backend";
 import Modal from "react-modal";
 
+// Importe os hooks personalizados
+import { useCourses } from "@/utils/hooks/useCourses";
+import { useCourseModules } from "@/utils/hooks/useCourseModules";
+import { useModuleClasses } from "@/utils/hooks/useModuleClasses";
+import { updateClassPositions } from "@/utils/saveClassToFirestore";
+
 const CreateCourse: React.FC = () => {
   const { user, loading } = useAuth();
 
-  const [userCourses, setUserCourses] = useState<Course[]>([]);
+  //const [userCourses, setUserCourses] = useState<Course[]>([]);
   const [createdCourseUid, setCreatedCourseUid] = useState<string | null>(null); // armazena o UID do curso criado
-  const [selectedCourseModules, setSelectedCourseModules] = useState<Module[]>(
-    []
-  ); // estado para armazenar os módulos do curso selecionado
+  //const [selectedCourseModules, setSelectedCourseModules] = useState<Module[]>(
+  //  []
+  //); // estado para armazenar os módulos do curso selecionado
   const [selectedCourseId, setSelectedCourseId] = useState<string | null>(null);
-  const [selectedModuleClasses, setSelectedModuleClasses] = useState<Class[]>(
-    []
-  );
+  //const [selectedModuleClasses, setSelectedModuleClasses] = useState<Class[]>(
+  //  []
+  //);
   const [isClassFormModalOpen, setIsClassFormModalOpen] = useState(false);
   const [selectedClass, setSelectedClass] = useState<Class | null>(null);
   const [isCourseFormModalOpen, setIsCourseFormModalOpen] = useState(false);
@@ -64,6 +77,17 @@ const CreateCourse: React.FC = () => {
     Resource[]
   >([]);
   const [selectedModuleId, setSelectedModuleId] = useState<string | null>(null);
+
+  // Use o hook useCourses
+  const { userCourses, setUserCourses } = useCourses(user?.uid || "");
+
+  // Use o hook useCourseModules
+  const { selectedCourseModules, setSelectedCourseModules } =
+    useCourseModules(selectedCourseId);
+
+  // Use o hook useModuleClasses
+  const { selectedModuleClasses, setSelectedModuleClasses } =
+    useModuleClasses(selectedModuleId);
 
   interface Resource {
     id: string;
@@ -133,13 +157,25 @@ const CreateCourse: React.FC = () => {
     setSelectedCourseModules(await fetchCourseModules(selectedCourseId));
   };
 
-  const moveModule = (fromIndex: number, toIndex: number) => {
+  const moveClass = async (fromIndex: number, toIndex: number) => {
+    const classesCopy = [...selectedModuleClasses];
+    const [removedClass] = classesCopy.splice(fromIndex, 1);
+    classesCopy.splice(toIndex, 0, removedClass);
+
+    setSelectedModuleClasses(classesCopy);
+    // Aqui você pode atualizar as aulas no Firebase
+      // Atualiza a posição das aulas no banco de dados
+  await updateClassPositions(classesCopy, selectedModuleId as string);
+  };
+
+  const moveModule = async (fromIndex: number, toIndex: number) => {
     const modulesCopy = [...selectedCourseModules];
     const [removedModule] = modulesCopy.splice(fromIndex, 1);
     modulesCopy.splice(toIndex, 0, removedModule);
 
     setSelectedCourseModules(modulesCopy);
     // Aqui você pode atualizar os módulos no Firebase
+    await updateModulePositions(modulesCopy);
   };
 
   const handleModuleClick = async (UUIDModule: string) => {
@@ -384,7 +420,30 @@ const CreateCourse: React.FC = () => {
         </div>
 
         <div>
-          <h2 className="text-2xl font-bold mb-4">Aulas</h2>
+          <DndProvider backend={HTML5Backend}>
+            <div>
+              <h2 className="text-2xl font-bold mb-4">Aulas</h2>
+              {selectedModuleClasses &&
+                selectedModuleClasses.map((classItem, index) => (
+                  <DraggableClassItem
+                    key={classItem.id}
+                    classItem={classItem}
+                    index={index}
+                    isSelected={selectedClass !== null &&
+                      classItem.id === selectedClass.id}
+                    onClassClick={handleClassClick}
+                    onDoubleClick={() => openUpdateClassFormModal(classItem)}
+                    moveClass={moveClass} id={""}                  />
+                ))}
+              <ActionButton
+                label="Adicionar Aula"
+                onClick={openAddClassFormModal}
+                className="btn btn-primary mb-4"
+              />
+            </div>
+          </DndProvider>
+
+          {/* <h2 className="text-2xl font-bold mb-4">Aulas</h2>
           {selectedModuleClasses &&
             selectedModuleClasses.map((classItem) => (
               <div key={classItem.id}>
@@ -402,7 +461,7 @@ const CreateCourse: React.FC = () => {
             label="Adicionar Aula"
             onClick={openAddClassFormModal}
             className="btn btn-primary mb-4"
-          />
+          /> */}
         </div>
         <Modal
           isOpen={isAddClassFormModalOpen}

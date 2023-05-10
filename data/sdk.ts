@@ -28,5 +28,6 @@ const auth = getAuth(appFirebase);
 export {
   appFirebase,
   auth,
+  firebaseConfig,
   //analyticsBirebase
 };

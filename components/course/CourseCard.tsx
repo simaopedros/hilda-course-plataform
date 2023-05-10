@@ -19,7 +19,11 @@ const CourseCard: React.FC<CourseItemProps> = ({ course, botonText }) => {
 const handleStartCourse = () => {
   if (course.lastModule && course.lastClass) {
     router.push(`/courses/${course.id}/module/${course.lastModule}/lessons/${course.lastClass}`);
-  } else {
+  } else if (!course.lastModule && course.lastClass){
+    router.push(`/courses/${course.id}/module/0/lessons/${course.lastClass}`);
+  }else if (!course.lastModule && !course.lastClass){
+    router.push(`/courses/${course.id}`);
+  }else {
     // Se não houver progresso armazenado, direcione o aluno para a primeira aula do primeiro módulo
     // Você pode ajustar isso de acordo com a estrutura do seu curso
     router.push(`/courses/${course.id}`);

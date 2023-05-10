@@ -3,10 +3,14 @@
 
 
 import { Module } from "@/components/course/courseForms/ModuleList";
-import { firestore } from "@/data/firestore";
-import { doc, setDoc } from "firebase/firestore";
+import { firebaseConfig } from "@/data/sdk";
+import { initializeApp } from "firebase/app";
+import { getAuth } from "firebase/auth";
+import { doc, getFirestore, setDoc, writeBatch } from "firebase/firestore";
 import { SetStateAction } from "react";
 
+const app = initializeApp(firebaseConfig);
+const firestore = getFirestore(app);
 
 function handleAddModule(
   setIsModuleModalOpen: React.Dispatch<SetStateAction<boolean>>,
@@ -29,8 +33,23 @@ export const saveModuleToFirestore = async (moduleId: string, moduleData: Module
   }
 };
 
+const updateModulePositions = async (modules: Module[]) => {
+  const batchWrite = writeBatch(firestore);
+  
+  modules.forEach((module, index) => {
+    if (module.UIDModule) {
+      const moduleRef = doc(firestore, "modules", module.UIDModule);
+      batchWrite.update(moduleRef, { displayOrder: index });
+    }
+  });
+
+  await batchWrite.commit();
+};
+
+
+
 export {
   handleAddModule,
-
+  updateModulePositions,
 };
 
