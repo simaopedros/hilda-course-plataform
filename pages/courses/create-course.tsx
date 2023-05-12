@@ -50,6 +50,7 @@ import { useCourses } from "@/utils/hooks/useCourses";
 import { useCourseModules } from "@/utils/hooks/useCourseModules";
 import { useModuleClasses } from "@/utils/hooks/useModuleClasses";
 import { updateClassPositions } from "@/utils/saveClassToFirestore";
+import withAdminAuth from "@/utils/withAdminAuth";
 
 const CreateCourse: React.FC = () => {
   const { user, loading } = useAuth();
@@ -443,25 +444,7 @@ const CreateCourse: React.FC = () => {
             </div>
           </DndProvider>
 
-          {/* <h2 className="text-2xl font-bold mb-4">Aulas</h2>
-          {selectedModuleClasses &&
-            selectedModuleClasses.map((classItem) => (
-              <div key={classItem.id}>
-                <ClassItem
-                  isSelected={
-                    selectedClass !== null && classItem.id === selectedClass.id
-                  }
-                  classItem={classItem}
-                  onDoubleClick={() => openUpdateClassFormModal(classItem)}
-                  onClassClick={handleClassClick}
-                />
-              </div>
-            ))}
-          <ActionButton
-            label="Adicionar Aula"
-            onClick={openAddClassFormModal}
-            className="btn btn-primary mb-4"
-          /> */}
+
         </div>
         <Modal
           isOpen={isAddClassFormModalOpen}
@@ -522,4 +505,4 @@ const CreateCourse: React.FC = () => {
   );
 };
 
-export default withAuth(CreateCourse);
+export default withAdminAuth(CreateCourse);

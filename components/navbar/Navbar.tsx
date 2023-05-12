@@ -3,7 +3,7 @@ import React, { useEffect, useState } from "react";
 import Link from "next/link";
 import Image from "next/image";
 import { getAuth, signOut } from "firebase/auth";
-import { appFirebase } from "@/data/sdk";
+import { appFirebase, auth } from "@/data/sdk";
 import { useRouter } from "next/router";
 import LogoMarca from "./LogoMarca";
 
@@ -38,10 +38,9 @@ const Navbar = () => {
       </button>
       <ul tabIndex={0} className="mt-3 p-2 shadow menu menu-compact dropdown-content bg-base-100 rounded-box w-52">
         <li>
-          <Link href="/profile" className="justify-between">
+          <Link href={`/profile?user=${auth.currentUser?.uid}`} className="justify-between">
             Profile
-            <span className="badge">New</span>
-          </Link>
+                     </Link>
         </li>
         <li><Link href="/settings">Settings</Link></li>
         <li><button onClick={handleLogout}>Logout</button></li>

@@ -27,6 +27,7 @@ const EnrolledCoursesSlider: React.FC<EnrolledCoursesSliderProsp> = ({
 
   if (enrolledCourses.length <= 4) {
     return (
+      
       <div className="flex flex-wrap">
         {enrolledCourses.map((course, index) => (
           <div key={course.id} className="px-2 mb-6 mt-6 w-full md:w-1/2 lg:w-1/4">

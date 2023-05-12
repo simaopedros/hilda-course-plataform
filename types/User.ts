@@ -12,4 +12,11 @@ export  default interface User {
     createdAt?: Date;
     updatedAt?: Date;
     courses?: Course[];
+    plan?: {
+      productId: number,
+      productName: string,
+      purchaseDate: number,
+      status: string,
+      transaction: string
+    }
   }

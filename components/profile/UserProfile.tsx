@@ -1,8 +1,8 @@
 // components/userProfile/UserProfile.tsx
 
-import User from '@/types/User';
-import Image from 'next/image';
-import React, { useState } from 'react';
+import User from "@/types/User";
+import Image from "next/image";
+import React, { useState } from "react";
 
 interface UserProfileProps {
   user: User;
@@ -13,7 +13,7 @@ const UserProfile: React.FC<UserProfileProps> = ({ user, onSubmit }) => {
   const [editMode, setEditMode] = useState(false);
   const [updatedUser, setUpdatedUser] = useState<User>(user);
 
-  const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+  const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
     setUpdatedUser({ ...updatedUser, [e.target.name]: e.target.value });
   };
 
@@ -27,7 +27,7 @@ const UserProfile: React.FC<UserProfileProps> = ({ user, onSubmit }) => {
     <div className="bg-white shadow-md rounded-lg p-6">
       <div className="flex flex-col md:flex-row items-center">
         <Image
-          src={'https://pbs.twimg.com/profile_images/1596571012237254657/M37hirAG_400x400.jpg'}
+          src={user.profilePicture?user.profilePicture as string: ""}
           alt="Profile"
           className="w-32 h-32 object-cover rounded-full"
           width={500}
@@ -60,8 +60,8 @@ const UserProfile: React.FC<UserProfileProps> = ({ user, onSubmit }) => {
             </form>
           ) : (
             <>
-              <h2 className="text-2xl font-semibold">{user.name}</h2>
-              <p className="text-gray-500">{user.email}</p>
+              <h2 className="text-2xl font-semibold">{user.name?user.name: ""}</h2>
+              <p className="text-gray-500">{user.email?user.email: ""}</p>
               <button
                 className="bg-blue-500 hover:bg-blue-600 text-white font-bold py-2 px-4 mt-4 rounded"
                 onClick={() => setEditMode(true)}
@@ -78,14 +78,29 @@ const UserProfile: React.FC<UserProfileProps> = ({ user, onSubmit }) => {
           <textarea
             name="description"
             value={updatedUser.description}
+            onChange={handleChange} // Adicione esta linha
             className="border-2 border-gray-300 p-2 rounded-lg w-full mt-2"
             rows={5}
           />
         ) : (
-          <p className="text-gray-600 cursor-pointer" onClick={() => setEditMode(true)}>
-            {user.description || 'Clique aqui para adicionar uma descrição.'}
+          <p
+            className="text-gray-600 cursor-pointer"
+            onClick={() => setEditMode(true)}
+          >
+            {user.description || "Clique aqui para adicionar uma descrição."}
           </p>
         )}
+      </div>
+
+      <div className="mt-6">
+        <h3 className="text-xl font-semibold">Cursos Inscritos</h3>
+        <p>Cursos Matriculados: {user.courses?.length}</p>
+      </div>
+      <div className="mt-6">
+        <h3 className="text-xl font-semibold">Data de Criação do Perfil</h3>
+        <p>
+          {user.createdAt? new Date(user.createdAt as unknown as number).toLocaleDateString(): ""}
+        </p>
       </div>
     </div>
   );

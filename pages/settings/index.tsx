@@ -18,8 +18,9 @@ const Settings: React.FC = () => {
       <Head>
         <title>Configurações</title>
       </Head>
-      <h1 className="text-4xl font-bold mb-6">Configurações</h1>
-      <form onSubmit={handleSubmit} className="w-full max-w-md">
+
+      <h1 className="text-4xl font-bold mb-6">Configurações de perfil disponivel em breve</h1>
+      {/* <form onSubmit={handleSubmit} className="w-full max-w-md">
         <div className="mb-4">
           <label className="block text-gray-700 text-sm font-bold mb-2" htmlFor="username">
             Nome de usuário
@@ -52,7 +53,7 @@ const Settings: React.FC = () => {
         >
           Salvar configurações
         </button>
-      </form>
+      </form> */}
     </div>
   );
 };

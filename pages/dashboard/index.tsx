@@ -197,11 +197,10 @@ const Dashboard: React.FC = () => {
   }
 
   return (
+    <>
     <div className="bg-white ml-8 mr-8 ">
-      <div className="container mx-auto py-8 mt-4 mb-4">
-
-        <h2 className="text-3xl font-bold mb-6 mt-6">Cursos matriculados</h2>
-
+      <div className="container mx-auto py-8 mt-4 mb-4">        
+      {enrolledCourses.length > 0?<h2 className="text-3xl font-bold mb-6 mt-6">Cursos matriculados</h2>:<></>}
         <EnrolledCoursesSlider enrolledCourses={enrolledCourses as Course[]} />
 
         <h2 className="text-3xl font-bold mb-6 mt-6">Todos os cursos</h2>
@@ -219,6 +218,7 @@ const Dashboard: React.FC = () => {
         />
       </div>
     </div>
+    </>
   );
 };
 
